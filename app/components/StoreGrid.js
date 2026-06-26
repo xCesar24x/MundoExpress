@@ -25,12 +25,17 @@ const chinaStores = [
   { name: "Temu", url: "https://www.temu.com", img: "/assets/Temu-Logo.png" },
   { name: "SHEIN", url: "https://www.shein.com", img: "/assets/logo-Shein.png" },
   { name: "JD.com (Jingdong)", url: "https://global.jd.com", img: "/assets/JD.com-logo.png" },
+  { name: "Alibaba.com", url: "https://www.alibaba.com", img: "/assets/alibabagroup.png" },
   { name: "Taobao", url: "https://www.taobao.com", img: "/assets/Taobao_Logo.svg.png" },
   { name: "Tmall", url: "https://www.tmall.com", img: "/assets/Logo-Tmall.png" },
   { name: "Pinduoduo", url: "https://www.pinduoduo.com", img: "/assets/pinduoduo-logo-png_seeklogo-385485.png" },
   { name: "1688.com", url: "https://www.1688.com", img: "/assets/1688-com-logo-png_seeklogo-318954.png" },
   { name: "DHgate", url: "https://www.dhgate.com", img: "/assets/563-5632091_dhgate-com-logo-png-transparent-png.png" },
-  { name: "Banggood", url: "https://www.banggood.com", img: "/assets/png-transparent-banggood-logo-icons-logos-emojis-iconic-brands.png" }
+  { name: "Banggood", url: "https://www.banggood.com", img: "/assets/png-transparent-banggood-logo-icons-logos-emojis-iconic-brands.png" },
+  { name: "Gearbest", url: "https://www.gearbest.com", img: "/assets/Gearbest-Logo.png" },
+  { name: "LightInTheBox", url: "https://www.lightinthebox.com", img: "/assets/png-transparent-light-in-the-box-logo.png" },
+  { name: "Made-in-China.com", url: "https://www.made-in-china.com", img: "/assets/madeinchina.png" },
+  { name: "Zaful", url: "https://www.zaful.com", img: "/assets/png-transparent-zaful-logo.png" }
 ];
 
 export default function StoreGrid() {
