@@ -62,7 +62,7 @@ export default function AdminDashboard() {
         {/* Header */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "3rem", flexWrap: "wrap", gap: "1rem" }}>
           <div>
-            <h1 style={{ fontSize: "2.5rem", fontWeight: 800, margin: 0, letterSpacing: "-1px" }}>Dashboard 2.0</h1>
+            <h1 style={{ fontSize: "2.5rem", fontWeight: 800, margin: 0, letterSpacing: "-1px" }}>Dashboard General</h1>
             <p style={{ color: "var(--text-light)", marginTop: "0.5rem" }}>Analíticas avanzadas y rastreo en tiempo real. Bienvenido, Wilson.</p>
           </div>
           <Link href="/">
