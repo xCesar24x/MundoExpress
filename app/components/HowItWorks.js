@@ -49,7 +49,13 @@ export default function HowItWorks() {
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: idx * 0.15 }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: idx * 0.12 }}
+              whileHover={{ 
+                y: -8, 
+                scale: 1.02, 
+                borderColor: "rgba(20, 177, 189, 0.25)", 
+                boxShadow: "0 15px 35px rgba(20, 177, 189, 0.05)" 
+              }}
               style={{
                 background: "var(--secondary-light)",
                 borderRadius: "24px",
@@ -58,7 +64,8 @@ export default function HowItWorks() {
                 flexDirection: "column",
                 gap: "1.5rem",
                 border: "1px solid rgba(255,255,255,0.03)",
-                boxShadow: "var(--shadow-md)"
+                boxShadow: "var(--shadow-md)",
+                transition: "border-color 0.3s ease, box-shadow 0.3s ease"
               }}
             >
               {/* Square image with rounded corners */}
