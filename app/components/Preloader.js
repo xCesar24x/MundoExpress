@@ -39,7 +39,7 @@ export default function Preloader() {
           }}
         >
           {/* Logo container */}
-          <div style={{ position: "relative", width: "280px", height: "70px", marginBottom: "1.5rem" }}>
+          <div style={{ position: "relative", width: "min(840px, 90vw)", height: "min(210px, 22.5vw)", marginBottom: "2rem" }}>
             
             {/* Background Logo (Grayscale / Darkened Outline version) */}
             <img 
@@ -77,7 +77,7 @@ export default function Preloader() {
                 src="/assets/Logo.png" 
                 alt="Mundo Express" 
                 style={{
-                  width: "280px", // matches container width
+                  width: "100%", // fits dynamic container size
                   height: "100%",
                   objectFit: "contain",
                   userSelect: "none",
@@ -89,7 +89,7 @@ export default function Preloader() {
           </div>
 
           {/* Smooth teal loading line below the logo */}
-          <div style={{ width: "200px", height: "2px", background: "rgba(255, 255, 255, 0.05)", borderRadius: "2px", position: "relative", overflow: "hidden" }}>
+          <div style={{ width: "min(400px, 60vw)", height: "3px", background: "rgba(255, 255, 255, 0.05)", borderRadius: "3px", position: "relative", overflow: "hidden" }}>
             <motion.div 
               initial={{ left: "-100%", width: "50%" }}
               animate={{ left: "100%" }}

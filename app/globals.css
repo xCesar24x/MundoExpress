@@ -587,7 +587,8 @@ ul {
   color: rgba(255, 255, 255, 0.9);
 }
 
-.stats-section .stat-number-big {
+.stats-section .stat-number-big,
+.stats-section .stat-number-big span {
   font-size: clamp(4.5rem, 8vw, 6rem);
   font-weight: 900;
   color: var(--primary);
@@ -595,11 +596,13 @@ ul {
   transition: all 0.5s ease;
 }
 
-.stats-section:hover .stat-number-big {
+.stats-section:hover .stat-number-big,
+.stats-section:hover .stat-number-big span {
   color: var(--orange); /* Animates from Celeste/Teal to Orange */
 }
 
-.stats-section .stat-number-medium {
+.stats-section .stat-number-medium,
+.stats-section .stat-number-medium span {
   font-size: clamp(3rem, 5vw, 3.8rem);
   font-weight: 900;
   color: var(--primary);
@@ -607,7 +610,8 @@ ul {
   transition: all 0.5s ease;
 }
 
-.stats-section:hover .stat-number-medium {
+.stats-section:hover .stat-number-medium,
+.stats-section:hover .stat-number-medium span {
   color: var(--orange); /* Animates from Celeste/Teal to Orange */
 }
 

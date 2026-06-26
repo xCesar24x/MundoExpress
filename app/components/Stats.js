@@ -35,74 +35,56 @@ function Counter({ from, to, duration = 1.5, suffix = "", prefix = "" }) {
 }
 
 export default function Stats() {
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
-
   return (
-    <section className="stats-section" ref={sectionRef}>
+    <section className="stats-section">
       <div style={{ maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "4rem", alignItems: "center" }}>
         
-        {/* Left Side text with scroll reveal */}
-        <motion.div 
-          initial={{ opacity: 0, x: -50 }}
-          animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          style={{ textAlign: "left" }}
-        >
-          <span className="badge" style={{ display: "inline-block", background: "rgba(20, 177, 189, 0.1)", color: "var(--primary)", border: "1px solid rgba(20, 177, 189, 0.2)", padding: "0.4rem 1rem", borderRadius: "8px", fontSize: "0.8rem", fontWeight: "700", letterSpacing: "1px", textTransform: "uppercase", marginBottom: "1.5rem" }}>
-            CIFRAS
-          </span>
-          <h2 style={{ fontSize: "clamp(2rem, 4vw, 2.8rem)", fontWeight: 800, color: "#FFFFFF", lineHeight: 1.2, marginBottom: "1.5rem" }}>
+        <div style={{ textAlign: "left" }}>
+          <span className="badge">CIFRAS</span>
+          <h2>
             Los números que te brindan seguridad
           </h2>
-          <p className="description" style={{ color: "var(--text-light)", fontSize: "1.05rem", lineHeight: 1.7 }}>
+          <p className="description">
             Cada paquete entregado, cliente satisfecho y kilómetro recorrido es el resultado de un engranaje perfecto diseñado para proteger tus envíos. En Mundo Express no solo movemos carga; transportamos tu tranquilidad con precisión y el respaldo tecnológico más confiable del país.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Right Side numbers with scroll count up and scale-in */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "3rem", textAlign: "left" }}>
-          
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }} 
-            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }} 
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+            initial={{ opacity: 0, y: 30 }} 
+            whileInView={{ opacity: 1, y: 0 }} 
+            viewport={{ once: true }} 
             style={{ gridColumn: "1 / -1" }}
           >
-            <div className="stat-number-big" style={{ fontSize: "clamp(3.5rem, 8vw, 5.5rem)", fontWeight: 900, color: "var(--primary)", lineHeight: 1.1 }}>
+            <div className="stat-number-big">
               <Counter from={0} to={40} prefix="+" suffix="K" />
             </div>
-            <div className="stat-label" style={{ color: "#FFFFFF", fontWeight: 600, fontSize: "1.1rem", marginTop: "0.5rem" }}>
-              Clientes activos
-            </div>
+            <div className="stat-label">Clientes activos</div>
           </motion.div>
           
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }} 
-            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }} 
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.35 }}
+            initial={{ opacity: 0, y: 30 }} 
+            whileInView={{ opacity: 1, y: 0 }} 
+            viewport={{ once: true }} 
+            transition={{ delay: 0.15 }}
           >
-            <div className="stat-number-medium" style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)", fontWeight: 900, color: "var(--primary)", lineHeight: 1.1 }}>
+            <div className="stat-number-medium">
               <Counter from={0} to={500} prefix="+" suffix="K" />
             </div>
-            <div className="stat-label" style={{ color: "#FFFFFF", fontWeight: 600, fontSize: "1.1rem", marginTop: "0.5rem" }}>
-              Paquetes entregados
-            </div>
+            <div className="stat-label">Paquetes entregados</div>
           </motion.div>
           
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }} 
-            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }} 
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.5 }}
+            initial={{ opacity: 0, y: 30 }} 
+            whileInView={{ opacity: 1, y: 0 }} 
+            viewport={{ once: true }} 
+            transition={{ delay: 0.25 }}
           >
-            <div className="stat-number-medium" style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)", fontWeight: 900, color: "var(--primary)", lineHeight: 1.1 }}>
+            <div className="stat-number-medium">
               <Counter from={0} to={3} />-<Counter from={0} to={5} />
             </div>
-            <div className="stat-label" style={{ color: "#FFFFFF", fontWeight: 600, fontSize: "1.1rem", marginTop: "0.5rem" }}>
-              Días hábiles promedio
-            </div>
+            <div className="stat-label">Días hábiles promedio</div>
           </motion.div>
-          
         </div>
 
       </div>
