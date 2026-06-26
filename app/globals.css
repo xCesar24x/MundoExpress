@@ -623,4 +623,9 @@ ul {
   color: rgba(255, 255, 255, 0.9);
 }
 
+/* ================= Next.js Dev Overlay Override ================= */
+nextjs-portal {
+  display: none !important;
+}
+
 
