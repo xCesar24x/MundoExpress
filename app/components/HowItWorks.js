@@ -18,7 +18,7 @@ const steps = [
   {
     number: '03',
     title: 'Envío a CR',
-    desc: 'Recibimos tu compra en nuestra bodega de Miami y la enviamos a Costa Rica.',
+    desc: 'Recibimos tu compra en nuestra bodega de Miami, China y Colombia y la enviamos a Costa Rica.',
     img: '/assets/envios a cr.PNG'
   },
   {
