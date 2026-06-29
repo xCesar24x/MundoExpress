@@ -144,9 +144,17 @@ export default function StoreGrid() {
               left: activeTab === 'usa' ? "6px" : activeTab === 'china' ? "calc(33.33% + 2px)" : "calc(66.66% - 2px)",
               width: "calc(33.33% - 4px)",
               height: "calc(100% - 12px)",
-              background: "var(--primary)",
+              background: activeTab === 'usa' 
+                ? "linear-gradient(135deg, #0a2540 0%, #bf0a30 100%)" // USA: Deep Blue & Red
+                : activeTab === 'china'
+                ? "linear-gradient(135deg, #de2910 0%, #f0ad4e 100%)" // China: Red & Yellow Gold
+                : "linear-gradient(135deg, #fcd116 0%, #003893 50%, #ce1126 100%)", // Colombia: Yellow, Blue, Red
               borderRadius: "12px",
-              boxShadow: "0 4px 12px rgba(20, 177, 189, 0.3)",
+              boxShadow: activeTab === 'usa'
+                ? "0 4px 12px rgba(10, 37, 64, 0.3)"
+                : activeTab === 'china'
+                ? "0 4px 12px rgba(222, 41, 16, 0.3)"
+                : "0 4px 12px rgba(252, 209, 22, 0.3)",
               zIndex: 1
             }}
             layout
@@ -159,6 +167,12 @@ export default function StoreGrid() {
             { id: 'colombia', code: 'CO', name: 'Colombia' }
           ].map((tab) => {
             const on = activeTab === tab.id;
+            const badgeBg = tab.id === 'usa'
+              ? "linear-gradient(90deg, #00205B 0%, #FFFFFF 50%, #C8102E 100%)"
+              : tab.id === 'china'
+              ? "linear-gradient(90deg, #DE2910 0%, #FFDE00 100%)"
+              : "linear-gradient(90deg, #FCD116 0%, #003893 50%, #CE1126 100%)";
+
             return (
               <button 
                 key={tab.id}
@@ -187,10 +201,12 @@ export default function StoreGrid() {
                     lineHeight: 1.4,
                     padding: "2px 6px",
                     borderRadius: 5,
-                    background: on ? "rgba(255,255,255,.2)" : "rgba(68, 68, 68, 0.08)",
-                    border: on ? "0.5px solid rgba(255,255,255,.4)" : "0.5px solid rgba(68, 68, 68, 0.15)",
-                    color: on ? "rgba(255,255,255,.95)" : "var(--dark-gray)",
-                    transition: "background .18s, color .18s, border-color .18s",
+                    background: badgeBg,
+                    border: on ? "1px solid rgba(255,255,255,0.8)" : "1px solid rgba(68, 68, 68, 0.15)",
+                    color: "white",
+                    textShadow: "0 1px 2px rgba(0,0,0,0.8)",
+                    transition: "border-color .18s, transform 0.2s",
+                    transform: on ? "scale(1.1)" : "scale(1)",
                   }}
                 >
                   {tab.code}
