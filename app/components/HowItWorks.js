@@ -12,7 +12,7 @@ const steps = [
   {
     number: '02',
     title: 'Compra globalmente',
-    desc: 'Comprá en cualquier tienda de USA, China o del resto del mundo.',
+    desc: 'Comprá en cualquier tienda, app u online de USA, China o del resto del mundo.',
     img: '/assets/compra en linea.PNG'
   },
   {
