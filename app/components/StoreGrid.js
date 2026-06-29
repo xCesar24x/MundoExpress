@@ -166,16 +166,11 @@ export default function StoreGrid() {
           />
 
           {[
-            { id: 'usa', code: 'US', name: 'Estados Unidos' },
-            { id: 'china', code: 'CN', name: 'China' },
-            { id: 'colombia', code: 'CO', name: 'Colombia' }
+            { id: 'usa', code: 'US', name: 'Estados Unidos', flag: '/assets/flag-usa.avif' },
+            { id: 'china', code: 'CN', name: 'China', flag: '/assets/flag-china.avif' },
+            { id: 'colombia', code: 'CO', name: 'Colombia', flag: '/assets/flag-colombia.jpg' }
           ].map((tab) => {
             const on = activeTab === tab.id;
-            const badgeBg = tab.id === 'usa'
-              ? "linear-gradient(90deg, #002868 0%, #FFFFFF 50%, #BF0A30 100%)"
-              : tab.id === 'china'
-              ? "linear-gradient(90deg, #DE2910 0%, #FFDE00 100%)"
-              : "linear-gradient(90deg, #FCD116 0%, #003893 50%, #CE1126 100%)";
 
             return (
               <button 
@@ -199,24 +194,31 @@ export default function StoreGrid() {
                   transition: "color 0.2s ease"
                 }}
               >
-                <span
+                <div
                   style={{
-                    fontSize: 10,
-                    fontWeight: 800,
-                    letterSpacing: "0.04em",
-                    lineHeight: 1.4,
-                    padding: "2px 6px",
-                    borderRadius: 5,
-                    background: badgeBg,
+                    width: "28px",
+                    height: "18px",
+                    borderRadius: "4px",
+                    overflow: "hidden",
                     border: on ? "1px solid rgba(255,255,255,0.8)" : "1px solid rgba(68, 68, 68, 0.15)",
-                    color: "white",
-                    textShadow: "0 1px 2px rgba(0,0,0,0.8)",
-                    transition: "border-color .18s, transform 0.2s",
+                    transition: "transform 0.2s, border-color 0.18s",
                     transform: on ? "scale(1.1)" : "scale(1)",
+                    boxShadow: "0 1px 3px rgba(0,0,0,0.15)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center"
                   }}
                 >
-                  {tab.code}
-                </span>
+                  <img 
+                    src={tab.flag} 
+                    alt={tab.name} 
+                    style={{ 
+                      width: "100%", 
+                      height: "100%", 
+                      objectFit: "cover" 
+                    }} 
+                  />
+                </div>
                 <span>{tab.name}</span>
               </button>
             );
