@@ -2,14 +2,9 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { AirplaneTilt, Boat, Warehouse, ClipboardText, Package } from '@phosphor-icons/react';
+import { Boat, Warehouse, ClipboardText, Package, Headset } from '@phosphor-icons/react';
 
 const servicesList = [
-  {
-    title: 'Flete Aéreo',
-    desc: 'Envíos urgentes con las mejores aerolíneas comerciales para carga crítica y de alto valor.',
-    Icon: AirplaneTilt
-  },
   {
     title: 'Carga Marítima',
     desc: 'Soluciones FCL y LCL ultra eficientes y económicas para volúmenes grandes a nivel internacional.',
@@ -29,6 +24,11 @@ const servicesList = [
     title: 'Última Milla',
     desc: 'Entregas precisas y puntuales directamente a la puerta de su cliente final con total trazabilidad.',
     Icon: Package
+  },
+  {
+    title: 'Atención Personalizada',
+    desc: 'Asesoría y soporte continuo durante todo el proceso de importación, adaptándonos a tus necesidades específicas.',
+    Icon: Headset
   }
 ];
 
@@ -46,7 +46,15 @@ export default function Services() {
         <h2 className="title">Servicios Destacados</h2>
       </motion.div>
 
-      <div className="services-grid">
+      <div 
+        className="services-grid"
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "2.5rem",
+          justifyContent: "center"
+        }}
+      >
         {servicesList.map((service, index) => {
           const IconComponent = service.Icon;
           return (
@@ -57,6 +65,10 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
+              style={{
+                flex: "1 1 350px",
+                maxWidth: "400px"
+              }}
             >
               <div className="service-icon">
                 <IconComponent weight="duotone" />
