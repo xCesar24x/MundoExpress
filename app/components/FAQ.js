@@ -24,7 +24,7 @@ const faqItems = [
   {
     category: 'aduanas',
     question: '¿Qué artículos están prohibidos importar a Costa Rica?',
-    answer: 'Por regulaciones gubernamentales de aduanas, algunos artículos tienen restricciones de ingreso o prohibición total, tales como: armas de fuego (o de juguete/balines/comprimidas), cosméticos y perfumes, suplementos médicos y vitaminas, químicos inflamables, pirotecnia, licores y alimentos frescos. Si tienes dudas sobre un producto, contáctanos antes de comprar.'
+    answer: 'Por regulaciones gubernamentales de aduanas, algunos artículos tienen restricciones de ingreso o prohibición total, tales como: armas de fuego (o de juguete/balines/comprimidas). Si tienes dudas sobre un producto, contáctanos antes de comprar.'
   },
   {
     category: 'compras',
