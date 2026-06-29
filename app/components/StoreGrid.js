@@ -49,6 +49,42 @@ const chinaStores = [
   { name: "Suning", url: "https://www.suning.com", img: "/assets/suning.png" }
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.04,
+      delayChildren: 0.05
+    }
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      staggerChildren: 0.02,
+      staggerDirection: -1
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, scale: 0.4, y: 40, rotateX: -60 },
+  show: { 
+    opacity: 1, 
+    scale: 1, 
+    y: 0, 
+    rotateX: 0,
+    transition: { type: "spring", stiffness: 280, damping: 20 }
+  },
+  exit: { 
+    opacity: 0, 
+    scale: 0.8, 
+    y: -20, 
+    rotateX: 45,
+    transition: { duration: 0.2 }
+  }
+};
+
 export default function StoreGrid() {
   const [activeTab, setActiveTab] = useState('usa');
   const currentStores = activeTab === 'usa' ? usaStores : chinaStores;
@@ -142,25 +178,28 @@ export default function StoreGrid() {
         <AnimatePresence mode="wait">
           <motion.div 
             key={activeTab}
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
-            transition={{ duration: 0.25, ease: "easeInOut" }}
+            variants={containerVariants}
+            initial="hidden"
+            animate="show"
+            exit="exit"
             style={{ 
               display: "grid", 
               gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", 
               gap: "1.5rem",
-              justifyContent: "center"
+              justifyContent: "center",
+              perspective: "1000px"
             }}
           >
             {currentStores.map((store) => (
               <motion.a 
                 key={store.name}
+                variants={itemVariants}
                 href={store.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ 
-                  y: -5, 
+                  y: -5,
+                  scale: 1.05,
                   boxShadow: "0 12px 24px rgba(0,0,0,0.06)", 
                   borderColor: "var(--primary)" 
                 }}
