@@ -153,69 +153,52 @@ export default function StoreGrid() {
             transition={{ type: "spring", stiffness: 350, damping: 30 }}
           />
 
-          <button 
-            onClick={() => setActiveTab('usa')}
-            style={{
-              padding: "0.8rem 2.5rem",
-              fontSize: "1rem",
-              fontWeight: "700",
-              border: "none",
-              cursor: "pointer",
-              borderRadius: "12px",
-              background: "transparent",
-              color: activeTab === 'usa' ? "white" : "var(--dark-gray)",
-              zIndex: 2,
-              display: "flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              transition: "color 0.2s ease"
-            }}
-          >
-            <span style={{ fontSize: "1.2rem", lineHeight: 1 }}>🇺🇸</span>
-            <span>Estados Unidos</span>
-          </button>
-          <button 
-            onClick={() => setActiveTab('china')}
-            style={{
-              padding: "0.8rem 2.5rem",
-              fontSize: "1rem",
-              fontWeight: "700",
-              border: "none",
-              cursor: "pointer",
-              borderRadius: "12px",
-              background: "transparent",
-              color: activeTab === 'china' ? "white" : "var(--dark-gray)",
-              zIndex: 2,
-              display: "flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              transition: "color 0.2s ease"
-            }}
-          >
-            <span style={{ fontSize: "1.2rem", lineHeight: 1 }}>🇨🇳</span>
-            <span>China</span>
-          </button>
-          <button 
-            onClick={() => setActiveTab('colombia')}
-            style={{
-              padding: "0.8rem 2.5rem",
-              fontSize: "1rem",
-              fontWeight: "700",
-              border: "none",
-              cursor: "pointer",
-              borderRadius: "12px",
-              background: "transparent",
-              color: activeTab === 'colombia' ? "white" : "var(--dark-gray)",
-              zIndex: 2,
-              display: "flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              transition: "color 0.2s ease"
-            }}
-          >
-            <span style={{ fontSize: "1.2rem", lineHeight: 1 }}>🇨🇴</span>
-            <span>Colombia</span>
-          </button>
+          {[
+            { id: 'usa', code: 'US', name: 'Estados Unidos' },
+            { id: 'china', code: 'CN', name: 'China' },
+            { id: 'colombia', code: 'CO', name: 'Colombia' }
+          ].map((tab) => {
+            const on = activeTab === tab.id;
+            return (
+              <button 
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                style={{
+                  padding: "0.8rem 2rem",
+                  fontSize: "1rem",
+                  fontWeight: "700",
+                  border: "none",
+                  cursor: "pointer",
+                  borderRadius: "12px",
+                  background: "transparent",
+                  color: on ? "white" : "var(--dark-gray)",
+                  zIndex: 2,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.8rem",
+                  transition: "color 0.2s ease"
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: 10,
+                    fontWeight: 800,
+                    letterSpacing: "0.04em",
+                    lineHeight: 1.4,
+                    padding: "2px 6px",
+                    borderRadius: 5,
+                    background: on ? "rgba(255,255,255,.2)" : "rgba(68, 68, 68, 0.08)",
+                    border: on ? "0.5px solid rgba(255,255,255,.4)" : "0.5px solid rgba(68, 68, 68, 0.15)",
+                    color: on ? "rgba(255,255,255,.95)" : "var(--dark-gray)",
+                    transition: "background .18s, color .18s, border-color .18s",
+                  }}
+                >
+                  {tab.code}
+                </span>
+                <span>{tab.name}</span>
+              </button>
+            );
+          })}
         </div>
 
         {/* Directory Grid of Logos */}
