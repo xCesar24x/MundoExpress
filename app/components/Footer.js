@@ -103,7 +103,17 @@ export default function Footer() {
           <ul style={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
             <li>
               <Link href="/services" style={{ color: "var(--text-light)", fontSize: "0.95rem", transition: "color 0.2s ease" }} onMouseEnter={(e) => e.currentTarget.style.color = "var(--primary)"} onMouseLeave={(e) => e.currentTarget.style.color = "var(--text-light)"}>
-                Dirección en las 3 partes
+                Dirección en Miami
+              </Link>
+            </li>
+            <li>
+              <Link href="/services" style={{ color: "var(--text-light)", fontSize: "0.95rem", transition: "color 0.2s ease" }} onMouseEnter={(e) => e.currentTarget.style.color = "var(--primary)"} onMouseLeave={(e) => e.currentTarget.style.color = "var(--text-light)"}>
+                Dirección en China
+              </Link>
+            </li>
+            <li>
+              <Link href="/services" style={{ color: "var(--text-light)", fontSize: "0.95rem", transition: "color 0.2s ease" }} onMouseEnter={(e) => e.currentTarget.style.color = "var(--primary)"} onMouseLeave={(e) => e.currentTarget.style.color = "var(--text-light)"}>
+                Dirección en Colombia
               </Link>
             </li>
             <li>
