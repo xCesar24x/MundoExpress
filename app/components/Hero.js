@@ -282,68 +282,97 @@ export default function Hero() {
 
               {/* Tab Selector */}
               <div style={{ 
-                display: "flex", 
-                padding: "4px", 
+                display: "grid", 
+                gridTemplateColumns: "repeat(3, 1fr)",
+                padding: "6px", 
                 background: "rgba(255, 255, 255, 0.05)", 
-                borderRadius: "12px", 
-                marginBottom: "2rem",
+                borderRadius: "16px",
+                border: "1px solid rgba(255, 255, 255, 0.08)",
                 position: "relative",
-                gap: "4px"
+                marginBottom: "2rem"
               }}>
-                <button 
-                  onClick={() => { setModalTab('miami'); setCopiedField(null); }}
+                {/* Animated Sliding Pill */}
+                <motion.div 
                   style={{
-                    flex: 1,
-                    padding: "0.7rem 0.4rem",
-                    fontSize: "0.85rem",
-                    fontWeight: "700",
-                    border: "none",
-                    cursor: "pointer",
-                    borderRadius: "8px",
-                    background: modalTab === 'miami' ? "var(--primary)" : "transparent",
-                    color: modalTab === 'miami' ? "white" : "rgba(255,255,255,0.6)",
-                    transition: "all 0.2s ease",
-                    whiteSpace: "nowrap"
+                    position: "absolute",
+                    top: "6px",
+                    left: modalTab === 'miami' ? "6px" : modalTab === 'china' ? "calc(33.33% + 2px)" : "calc(66.66% - 2px)",
+                    width: "calc(33.33% - 4px)",
+                    height: "calc(100% - 12px)",
+                    background: modalTab === 'miami' 
+                      ? "linear-gradient(135deg, #002868 0%, #bf0a30 100%)" // USA: Exact Blue & Red
+                      : modalTab === 'china'
+                      ? "linear-gradient(135deg, #de2910 0%, #ffde00 100%)" // China: Exact Red & Yellow
+                      : "linear-gradient(135deg, #fcd116 0%, #003893 50%, #ce1126 100%)", // Colombia: Exact Yellow, Blue, Red
+                    borderRadius: "12px",
+                    boxShadow: modalTab === 'miami'
+                      ? "0 4px 12px rgba(0, 40, 104, 0.3)"
+                      : modalTab === 'china'
+                      ? "0 4px 12px rgba(222, 41, 16, 0.3)"
+                      : "0 4px 12px rgba(252, 209, 22, 0.3)",
+                    zIndex: 1
                   }}
-                >
-                  🇺🇸 Miami
-                </button>
-                <button 
-                  onClick={() => { setModalTab('china'); setCopiedField(null); }}
-                  style={{
-                    flex: 1,
-                    padding: "0.7rem 0.4rem",
-                    fontSize: "0.85rem",
-                    fontWeight: "700",
-                    border: "none",
-                    cursor: "pointer",
-                    borderRadius: "8px",
-                    background: modalTab === 'china' ? "var(--primary)" : "transparent",
-                    color: modalTab === 'china' ? "white" : "rgba(255,255,255,0.6)",
-                    transition: "all 0.2s ease",
-                    whiteSpace: "nowrap"
-                  }}
-                >
-                  🇨🇳 China
-                </button>
-                <button 
-                  onClick={() => { setModalTab('colombia'); setCopiedField(null); }}
-                  style={{
-                    flex: 1,
-                    padding: "0.7rem 0.4rem",
-                    fontSize: "0.85rem",
-                    fontWeight: "700",
-                    border: "none",
-                    cursor: "pointer",
-                    borderRadius: "8px",
-                    background: modalTab === 'colombia' ? "var(--primary)" : "transparent",
-                    color: modalTab === 'colombia' ? "white" : "rgba(255,255,255,0.6)",
-                    transition: "all 0.2s ease",
-                    whiteSpace: "nowrap"
-                  }}
-                >
-                  🇨🇴 Colombia
-                </button>
+                  layout
+                  transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                />
+
+                {[
+                  { id: 'miami', name: 'Miami', flag: '/assets/flag-usa.avif' },
+                  { id: 'china', name: 'China', flag: '/assets/flag-china.avif' },
+                  { id: 'colombia', name: 'Colombia', flag: '/assets/flag-colombia.jpg' }
+                ].map((tab) => {
+                  const on = modalTab === tab.id;
+                  return (
+                    <button 
+                      key={tab.id}
+                      onClick={() => { setModalTab(tab.id); setCopiedField(null); }}
+                      style={{
+                        padding: "0.8rem 0",
+                        width: "100%",
+                        fontSize: "0.9rem",
+                        fontWeight: "700",
+                        border: "none",
+                        cursor: "pointer",
+                        borderRadius: "12px",
+                        background: "transparent",
+                        color: on ? "white" : "rgba(255, 255, 255, 0.6)",
+                        zIndex: 2,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "0.6rem",
+                        transition: "color 0.2s ease"
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: "24px",
+                          height: "16px",
+                          borderRadius: "3px",
+                          overflow: "hidden",
+                          border: on ? "1px solid rgba(255,255,255,0.8)" : "1px solid rgba(255, 255, 255, 0.15)",
+                          transition: "transform 0.2s, border-color 0.18s",
+                          transform: on ? "scale(1.1)" : "scale(1)",
+                          boxShadow: "0 1px 3px rgba(0,0,0,0.3)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center"
+                        }}
+                      >
+                        <img 
+                          src={tab.flag} 
+                          alt={tab.name} 
+                          style={{ 
+                            width: "100%", 
+                            height: "100%", 
+                            objectFit: "cover" 
+                          }} 
+                        />
+                      </div>
+                      <span>{tab.name}</span>
+                    </button>
+                  );
+                })}
               </div>
 
               {/* Fields */}
