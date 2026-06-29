@@ -166,7 +166,7 @@ export default function StoreGrid() {
           />
 
           {[
-            { id: 'usa', code: 'US', name: 'Estados Unidos', flag: '/assets/flag-usa.avif' },
+            { id: 'usa', code: 'US', name: 'Estados Unidos', flag: '/assets/flag-usa.png' },
             { id: 'china', code: 'CN', name: 'China', flag: '/assets/flag-china.avif' },
             { id: 'colombia', code: 'CO', name: 'Colombia', flag: '/assets/flag-colombia.jpg' }
           ].map((tab) => {
