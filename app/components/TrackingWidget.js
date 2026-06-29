@@ -12,6 +12,7 @@ export default function TrackingWidget() {
 
   // Calculation State
   const [weight, setWeight] = useState("");
+  const [unit, setUnit] = useState("kilos"); // 'kilos' or 'libras'
   const [calcResult, setCalcResult] = useState(null);
 
   const handleTrack = () => {
@@ -27,9 +28,16 @@ export default function TrackingWidget() {
   const handleCalculate = () => {
     const w = parseFloat(weight);
     if (!isNaN(w) && w > 0) {
-      // Tarifas genericas: $8/lb o aprox 4500 colones. Vamos a usar 4500 como tarifa generica.
-      const total = w * 4500;
-      setCalcResult(total);
+      // Tarifa todo incluido: 6480 por kilo
+      let total;
+      if (unit === 'kilos') {
+        total = w * 6480;
+      } else {
+        // unit is libras. Convert libras to kilos.
+        // 1 kilo = 2.20462 libras
+        total = (w / 2.20462) * 6480;
+      }
+      setCalcResult(Math.round(total));
     } else {
       setCalcResult(null);
     }
@@ -212,16 +220,57 @@ export default function TrackingWidget() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <h3 style={{ fontSize: "1.5rem", marginBottom: "0.5rem", fontWeight: 800 }}>CALCULA TU ENVÍO</h3>
             <p style={{ marginBottom: "1.5rem", fontSize: "0.9rem", opacity: 0.9, lineHeight: "1.5" }}>
-              Calcula el costo aproximado de traer tu paquete a Costa Rica. (Tarifa genérica de ₡4,500 x libra).
+              Calcula el costo aproximado de traer tu paquete a Costa Rica. (Tarifa todo incluido de ₡6,480 x kilo).
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginTop: "1.5rem" }}>
               <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-                <span style={{ fontSize: "0.8rem", fontWeight: "700", opacity: 0.8, textTransform: "uppercase", letterSpacing: "0.05em" }}>Peso del paquete</span>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span style={{ fontSize: "0.8rem", fontWeight: "700", opacity: 0.8, textTransform: "uppercase", letterSpacing: "0.05em" }}>Peso del paquete</span>
+                  
+                  {/* Unit Selector Toggle */}
+                  <div style={{ display: "flex", background: "rgba(0, 0, 0, 0.08)", padding: "2px", borderRadius: "8px" }}>
+                    <button 
+                      type="button"
+                      onClick={() => { setUnit('kilos'); setCalcResult(null); }}
+                      style={{
+                        padding: "0.3rem 0.7rem",
+                        fontSize: "0.75rem",
+                        fontWeight: "700",
+                        border: "none",
+                        background: unit === 'kilos' ? "var(--bg-dark)" : "transparent",
+                        color: unit === 'kilos' ? "white" : "rgba(0,0,0,0.6)",
+                        borderRadius: "6px",
+                        cursor: "pointer",
+                        transition: "all 0.2s"
+                      }}
+                    >
+                      Kilos (kg)
+                    </button>
+                    <button 
+                      type="button"
+                      onClick={() => { setUnit('libras'); setCalcResult(null); }}
+                      style={{
+                        padding: "0.3rem 0.7rem",
+                        fontSize: "0.75rem",
+                        fontWeight: "700",
+                        border: "none",
+                        background: unit === 'libras' ? "var(--bg-dark)" : "transparent",
+                        color: unit === 'libras' ? "white" : "rgba(0,0,0,0.6)",
+                        borderRadius: "6px",
+                        cursor: "pointer",
+                        transition: "all 0.2s"
+                      }}
+                    >
+                      Libras (lb)
+                    </button>
+                  </div>
+                </div>
+                
                 <input 
                   type="number" 
                   value={weight}
                   onChange={(e) => setWeight(e.target.value)}
-                  placeholder="Libras" 
+                  placeholder={unit === 'kilos' ? "Kilos" : "Libras"} 
                   style={{ 
                     padding: "1rem", 
                     borderRadius: "10px", 

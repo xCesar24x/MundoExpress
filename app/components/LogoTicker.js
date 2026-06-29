@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 const logos = [
   { name: "DHL", img: "/assets/DHL.png" },
-  { name: "SF Express", img: "/assets/SFexpress.png" },
+  { name: "SF Express", img: "/assets/SFexpress.png", style: { transform: "scale(1.25)" } },
   { name: "FedEx", img: "/assets/FedEx-Logo.png" },
   { name: "Cainiao Network", img: "/assets/Cainiao.png" },
   { name: "UPS", img: "/assets/UPS-logo.png" },
@@ -16,9 +16,14 @@ const logos = [
   { name: "Hapag-Lloyd", img: "/assets/hapag-lloyd.png" },
   { name: "COSCO Shipping", img: "/assets/COSCO.png" },
   { name: "MSC", img: "/assets/msc-logo.png" },
-  { name: "OOCL", img: "/assets/OOCL.png" },
-  { name: "China Merchants Shipping", img: "/assets/China_Merchants_Group.png" }
+  { name: "OOCL", img: "/assets/OOCL.png", style: { transform: "scale(1.25)" } },
+  { name: "China Merchants Shipping", img: "/assets/China_Merchants_Group.png" },
+  { name: "Veho", img: "/assets/veho.png" },
+  { name: "USPS", img: "/assets/USPS.webp" },
+  { name: "YunExpress", img: "/assets/yunexpress.png" },
+  { name: "GOFO Express", img: "/assets/gofo.png", style: { transform: "scale(1.25)" } }
 ];
+
 
 export default function LogoTicker() {
   const [mounted, setMounted] = useState(false);
@@ -50,7 +55,8 @@ export default function LogoTicker() {
                     height: "65px",
                     width: "auto",
                     maxWidth: "220px",
-                    objectFit: "contain"
+                    objectFit: "contain",
+                    ...logo.style
                   }}
                 />
               </div>
@@ -61,3 +67,4 @@ export default function LogoTicker() {
     </div>
   );
 }
+

@@ -17,8 +17,14 @@ const usaStores = [
   { name: "Etsy", url: "https://www.etsy.com", img: "/assets/Etsy_logo.svg.png" },
   { name: "Costco", url: "https://www.costco.com", img: "/assets/Costco_Wholesale_logo_2010-10-26.svg.png" },
   { name: "Wayfair", url: "https://www.wayfair.com", img: "/assets/wayfair-logo-vector-free-download-11573939809tdwzvh3e6p.png" },
-  { name: "Macy's", url: "https://www.macys.com", img: "/assets/macys-logo-png_seeklogo-504490.png" }
+  { name: "Macy's", url: "https://www.macys.com", img: "/assets/macys-logo-png_seeklogo-504490.png" },
+  { name: "Marshalls", url: "https://www.marshalls.com", img: "/assets/Marshall-Logo.png" },
+  { name: "Shop Premium Outlets", url: "https://shoppremiumoutlets.com", img: "/assets/Simon_Logo.png" },
+  { name: "Joe's New Balance Outlet", url: "https://www.joesnewbalanceoutlet.com", img: "/assets/joes-outlet.png" },
+  { name: "RockAuto", url: "https://www.rockauto.com", img: "/assets/rockauto.png" },
+  { name: "Carter's", url: "https://www.carters.com", img: "/assets/carters.png", style: { transform: "scale(1.35)" } }
 ];
+
 
 const chinaStores = [
   { name: "AliExpress", url: "https://www.aliexpress.com", img: "/assets/png-clipart-amazon-com-aliexpress-app-store-shopping-app-android-text-logo.png" },
@@ -35,7 +41,12 @@ const chinaStores = [
   { name: "Gearbest", url: "https://www.gearbest.com", img: "/assets/Gearbest-Logo.png" },
   { name: "LightInTheBox", url: "https://www.lightinthebox.com", img: "/assets/png-transparent-light-in-the-box-logo.png" },
   { name: "Made-in-China.com", url: "https://www.made-in-china.com", img: "/assets/madeinchina.png" },
-  { name: "Zaful", url: "https://www.zaful.com", img: "/assets/png-transparent-zaful-logo.png" }
+  { name: "Zaful", url: "https://www.zaful.com", img: "/assets/png-transparent-zaful-logo.png" },
+  { name: "Weidian", url: "https://www.weidian.com", img: "/assets/Weidian-logo.png" },
+  { name: "Vipshop", url: "https://www.vip.com", img: "/assets/VIP.png" },
+  { name: "Xiaomi Youpin", url: "https://www.xiaomiyoupin.com", img: "/assets/Xiaomi.png" },
+  { name: "Dangdang", url: "https://www.dangdang.com", img: "/assets/dangdang.png" },
+  { name: "Suning", url: "https://www.suning.com", img: "/assets/suning.png" }
 ];
 
 export default function StoreGrid() {
@@ -128,27 +139,26 @@ export default function StoreGrid() {
         </div>
 
         {/* Directory Grid of Logos */}
-        <motion.div 
-          layout
-          style={{ 
-            display: "grid", 
-            gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", 
-            gap: "1.5rem",
-            justifyContent: "center"
-          }}
-        >
-          <AnimatePresence mode="popLayout">
+        <AnimatePresence mode="wait">
+          <motion.div 
+            key={activeTab}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -15 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            style={{ 
+              display: "grid", 
+              gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", 
+              gap: "1.5rem",
+              justifyContent: "center"
+            }}
+          >
             {currentStores.map((store) => (
               <motion.a 
                 key={store.name}
                 href={store.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                layout
-                initial={{ opacity: 0, scale: 0.9, y: 15 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9, y: -15 }}
-                transition={{ duration: 0.25 }}
                 whileHover={{ 
                   y: -5, 
                   boxShadow: "0 12px 24px rgba(0,0,0,0.06)", 
@@ -175,13 +185,14 @@ export default function StoreGrid() {
                   style={{
                     width: "100%",
                     height: "100%",
-                    objectFit: "contain"
+                    objectFit: "contain",
+                    ...store.style
                   }}
                 />
               </motion.a>
             ))}
-          </AnimatePresence>
-        </motion.div>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   );

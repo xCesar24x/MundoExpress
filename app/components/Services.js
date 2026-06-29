@@ -2,14 +2,9 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Truck, AirplaneTilt, Boat, Warehouse, ClipboardText, Package } from '@phosphor-icons/react';
+import { AirplaneTilt, Boat, Warehouse, ClipboardText, Package } from '@phosphor-icons/react';
 
 const servicesList = [
-  {
-    title: 'Transporte Terrestre',
-    desc: 'Flota moderna para carga pesada y distribución urbana en todo el país, con rastreo GPS en tiempo real.',
-    Icon: Truck
-  },
   {
     title: 'Flete Aéreo',
     desc: 'Envíos urgentes con las mejores aerolíneas comerciales para carga crítica y de alto valor.',
@@ -21,13 +16,13 @@ const servicesList = [
     Icon: Boat
   },
   {
-    title: 'Almacenaje',
-    desc: 'Centros de distribución de alta seguridad con control de inventario inteligente y vigilancia 24/7.',
+    title: 'Consolidación',
+    desc: 'Agrupamos tus múltiples compras en un solo paquete para que ahorres al máximo en tu envío a Costa Rica.',
     Icon: Warehouse
   },
   {
-    title: 'Aduanas',
-    desc: 'Gestión rápida y sin fricciones de trámites aduaneros de importación y exportación.',
+    title: 'Servicios Aduanales',
+    desc: 'Gestión rápida y sin complicaciones de trámites de nacionalización e impuestos para tus importaciones.',
     Icon: ClipboardText
   },
   {
