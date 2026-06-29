@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Package } from '@phosphor-icons/react';
 import TrackingWidget from './TrackingWidget';
@@ -9,6 +9,24 @@ export default function Hero() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalTab, setModalTab] = useState('miami'); // 'miami' or 'china'
   const [copiedField, setCopiedField] = useState(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const openModal = params.get('openAddressModal');
+      const tab = params.get('tab');
+      if (openModal === 'true') {
+        setIsModalOpen(true);
+        if (tab && ['miami', 'china', 'colombia'].includes(tab)) {
+          setModalTab(tab);
+        }
+        
+        // Clean URL parameters so they don't stick on page refresh
+        const newUrl = window.location.pathname;
+        window.history.replaceState({}, '', newUrl);
+      }
+    }
+  }, []);
 
   const handleCopy = (text, fieldId) => {
     navigator.clipboard.writeText(text);

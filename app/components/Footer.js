@@ -102,17 +102,17 @@ export default function Footer() {
           <h4 style={{ color: "var(--text-main)", fontSize: "1.1rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "1px" }}>Servicios</h4>
           <ul style={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
             <li>
-              <Link href="/services" style={{ color: "var(--text-light)", fontSize: "0.95rem", transition: "color 0.2s ease" }} onMouseEnter={(e) => e.currentTarget.style.color = "var(--primary)"} onMouseLeave={(e) => e.currentTarget.style.color = "var(--text-light)"}>
+              <Link href="/?openAddressModal=true&tab=miami" style={{ color: "var(--text-light)", fontSize: "0.95rem", transition: "color 0.2s ease" }} onMouseEnter={(e) => e.currentTarget.style.color = "var(--primary)"} onMouseLeave={(e) => e.currentTarget.style.color = "var(--text-light)"}>
                 Dirección en Miami
               </Link>
             </li>
             <li>
-              <Link href="/services" style={{ color: "var(--text-light)", fontSize: "0.95rem", transition: "color 0.2s ease" }} onMouseEnter={(e) => e.currentTarget.style.color = "var(--primary)"} onMouseLeave={(e) => e.currentTarget.style.color = "var(--text-light)"}>
+              <Link href="/?openAddressModal=true&tab=china" style={{ color: "var(--text-light)", fontSize: "0.95rem", transition: "color 0.2s ease" }} onMouseEnter={(e) => e.currentTarget.style.color = "var(--primary)"} onMouseLeave={(e) => e.currentTarget.style.color = "var(--text-light)"}>
                 Dirección en China
               </Link>
             </li>
             <li>
-              <Link href="/services" style={{ color: "var(--text-light)", fontSize: "0.95rem", transition: "color 0.2s ease" }} onMouseEnter={(e) => e.currentTarget.style.color = "var(--primary)"} onMouseLeave={(e) => e.currentTarget.style.color = "var(--text-light)"}>
+              <Link href="/?openAddressModal=true&tab=colombia" style={{ color: "var(--text-light)", fontSize: "0.95rem", transition: "color 0.2s ease" }} onMouseEnter={(e) => e.currentTarget.style.color = "var(--primary)"} onMouseLeave={(e) => e.currentTarget.style.color = "var(--text-light)"}>
                 Dirección en Colombia
               </Link>
             </li>
