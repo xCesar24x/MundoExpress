@@ -19,7 +19,7 @@ export default function Hero() {
   const miamiAddress = [
     { label: "Nombre / Consignatario", value: "Mundo Express + [Tu Casillero] (Ej: Mundo Express 0007)", id: "m_name" },
     { label: "Dirección / Address Line 1", value: "11350 NW 25th St", id: "m_addr" },
-    { label: "Dirección 2 / Address Line 2 (Suite)", value: "Ste 100", id: "m_suite" },
+    { label: "Dirección 2 / Address Line 2 (Suite - Apartment - Building)", value: "Ste 100", id: "m_suite" },
     { label: "Ciudad / City", value: "Doral", id: "m_city" },
     { label: "Estado / State", value: "Florida", id: "m_state" },
     { label: "Código Postal / Zip Code", value: "33172", id: "m_zip" },
