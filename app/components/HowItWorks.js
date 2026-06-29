@@ -24,7 +24,7 @@ const steps = [
   {
     number: '04',
     title: 'Entrega',
-    desc: 'Recibí tu paquete en la puerta de tu casa o recógelo en nuestras sucursales.',
+    desc: 'Recibí tu paquete en la puerta de tu casa.',
     img: '/assets/entrega.PNG'
   }
 ];
