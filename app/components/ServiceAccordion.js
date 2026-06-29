@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Package, Handshake, Briefcase } from '@phosphor-icons/react';
+import { Package, Handshake, Briefcase, ClipboardText } from '@phosphor-icons/react';
 
 const plans = [
   {
@@ -27,6 +27,22 @@ const plans = [
     features: ['Agenciamiento aduanal', 'Flete aéreo y marítimo', 'Bodegaje', 'Atención ejecutiva'],
     icon: Briefcase,
     img: '/assets/03. MUNDO BUSINESS.PNG'
+  },
+  {
+    id: '04',
+    title: 'AGENCIA ADUANAL',
+    desc: 'Seremos su apoyo en todo el proceso de los trámites aduaneros para el despacho de sus mercancías.',
+    features: [
+      'Servicio de desalmacenajes y trámites de exportación.',
+      'Cálculo de impuestos previo a la importación de su mercadería.',
+      'Revisión de documentos previos a sus trámites para que cumplan con lo establecido por la Ley General de Aduanas.',
+      'Trámites de exportaciones, importaciones temporales y Zona Franca.',
+      'Brindamos servicio en todas las aduanas del país.',
+      'Entrega local de tus mercancias.'
+    ],
+    btnText: 'Solicitar más información',
+    icon: ClipboardText,
+    img: '/assets/04. Agencia aduanal.PNG'
   }
 ];
 
@@ -89,7 +105,14 @@ export default function ServiceAccordion() {
                           </li>
                         ))}
                       </ul>
-                      <a href="#" className="btn-primary" style={{ padding: "0.8rem 2rem" }}>Seleccionar Plan</a>
+                      {plan.id === '04' && (
+                        <p style={{ color: "var(--text-main)", fontWeight: 500, marginBottom: "1rem" }}>
+                          ¿Te gustaría empezar hoy a traer tus compras con nosotros?
+                        </p>
+                      )}
+                      <a href="#" className="btn-primary" style={{ padding: "0.8rem 2rem" }}>
+                        {plan.btnText || 'Seleccionar Plan'}
+                      </a>
                     </motion.div>
                   )}
                 </AnimatePresence>
