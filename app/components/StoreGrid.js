@@ -65,7 +65,7 @@ const colombiaStores = [
   { name: "Homecenter", url: "https://www.homecenter.com.co", img: "/assets/sodimac-homecenter-logo-0.png" },
   { name: "Ktronix", url: "https://www.ktronix.com", img: "/assets/ktronix.png" },
   { name: "Panamericana", url: "https://www.panamericana.com.co", img: "/assets/panamericana.png" },
-  { name: "iShop Colombia", url: "https://www.ishopcolombia.com", img: "/assets/0-ISHOP-1.png" },
+  { name: "iShop Colombia", url: "https://tiendasishop.com/co/", img: "/assets/0-ISHOP-1.png" },
   { name: "Pepe Ganga", url: "https://www.pepeganga.com", img: "/assets/pepeganga.png" },
   { name: "Decathlon", url: "https://www.decathlon.com.co", img: "/assets/decathlon.png" },
   { name: "Farmatodo", url: "https://www.farmatodo.com.co", img: "/assets/farmatodo-logo-png_seeklogo-391009.png" },
