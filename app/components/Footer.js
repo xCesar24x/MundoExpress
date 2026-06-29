@@ -103,7 +103,7 @@ export default function Footer() {
           <ul style={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
             <li>
               <Link href="/services" style={{ color: "var(--text-light)", fontSize: "0.95rem", transition: "color 0.2s ease" }} onMouseEnter={(e) => e.currentTarget.style.color = "var(--primary)"} onMouseLeave={(e) => e.currentTarget.style.color = "var(--text-light)"}>
-                Dirección en Miami
+                Dirección en las 3 partes
               </Link>
             </li>
             <li>
@@ -114,11 +114,6 @@ export default function Footer() {
             <li>
               <Link href="/services" style={{ color: "var(--text-light)", fontSize: "0.95rem", transition: "color 0.2s ease" }} onMouseEnter={(e) => e.currentTarget.style.color = "var(--primary)"} onMouseLeave={(e) => e.currentTarget.style.color = "var(--text-light)"}>
                 Mundo Business
-              </Link>
-            </li>
-            <li>
-              <Link href="/services" style={{ color: "var(--text-light)", fontSize: "0.95rem", transition: "color 0.2s ease" }} onMouseEnter={(e) => e.currentTarget.style.color = "var(--primary)"} onMouseLeave={(e) => e.currentTarget.style.color = "var(--text-light)"}>
-                Casillero en China
               </Link>
             </li>
             <li>
