@@ -169,7 +169,7 @@ ul {
   align-items: center;
   padding: 8rem 2rem 4rem 2rem;
   overflow: hidden;
-  background-image: linear-gradient(rgba(10, 10, 10, 0.75), rgba(10, 10, 10, 0.75)), url('/assets/hero-bg.jpg');
+  background-image: linear-gradient(rgba(10, 10, 10, 0.45), rgba(10, 10, 10, 0.45)), url('/assets/hero-bg.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

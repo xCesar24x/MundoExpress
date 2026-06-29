@@ -243,7 +243,7 @@ export default function Hero() {
                 border: "1px solid rgba(255, 255, 255, 0.08)",
                 borderRadius: "24px",
                 width: "100%",
-                maxWidth: "680px",
+                maxWidth: "780px",
                 maxHeight: "90vh",
                 overflowY: "auto",
                 padding: "2.5rem",
