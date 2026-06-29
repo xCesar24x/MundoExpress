@@ -89,16 +89,6 @@ export default function FAQ() {
         zIndex: 0,
         pointerEvents: "none"
       }} />
-      <div style={{
-        position: "absolute",
-        bottom: "10%",
-        right: "-200px",
-        width: "500px",
-        height: "500px",
-        background: "radial-gradient(circle, rgba(255, 133, 25, 0.03) 0%, rgba(5, 5, 5, 0) 70%)",
-        zIndex: 0,
-        pointerEvents: "none"
-      }} />
 
       <div style={{ maxWidth: "900px", margin: "0 auto", position: "relative", zIndex: 1 }}>
         
