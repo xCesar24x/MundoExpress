@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const faqCategories = [
   { id: 'all', name: 'Todas' },
-  { id: 'casillero', name: 'Casillero Miami' },
+  { id: 'casillero', name: 'Casillero Internacional' },
   { id: 'tarifas', name: 'Tarifas y Envíos' },
   { id: 'compras', name: 'Compra Asistida y China' },
   { id: 'aduanas', name: 'Aduanas y Restricciones' }
@@ -13,13 +13,13 @@ const faqCategories = [
 const faqItems = [
   {
     category: 'casillero',
-    question: '¿Cómo funciona el casillero en Miami?',
-    answer: 'Al registrarte gratis en Mundo Express, te asignamos una dirección física en Florida con tu número de casillero exclusivo. Haces tus compras online en tus tiendas favoritas (Amazon, eBay, etc.), ingresas esa dirección al pagar y, una vez que tus paquetes llegan a nuestra bodega en Miami, nos encargamos de transportarlos e importarlos a Costa Rica hasta la puerta de tu casa.'
+    question: '¿Cómo funciona el casillero internacional?',
+    answer: 'Al registrarte gratis en Mundo Express, te asignamos direcciones físicas exclusivas en Miami (EE.UU.), China y Colombia, cada una con tu número de casillero. Realizas tus compras online en cualquier tienda del mundo, ingresas la dirección correspondiente al pagar y, una vez que tus paquetes llegan a nuestras bodegas, nos encargamos de transportarlos e importarlos a Costa Rica hasta la puerta de tu casa.'
   },
   {
     category: 'tarifas',
     question: '¿Qué tarifas tienen y cómo se calcula el cobro?',
-    answer: 'Nuestras tarifas se basan principalmente en el peso real de los paquetes en libras. No cobramos peso volumétrico para la mayoría de envíos estándar por vía aérea. El cobro final incluye el flete internacional, el trámite aduanal y los impuestos correspondientes según el tipo de mercadería.'
+    answer: 'Nuestras tarifas se basan principalmente en el peso real de los paquetes en kilos. Manejamos una tarifa plana todo incluido de ₡6,480 por kilo hacia Costa Rica. No cobramos peso volumétrico para la gran mayoría de envíos estándar. El cobro final incluye el flete internacional, el trámite aduanal y la entrega a domicilio.'
   },
   {
     category: 'aduanas',
@@ -29,7 +29,7 @@ const faqItems = [
   {
     category: 'compras',
     question: '¿Cómo funciona el servicio de Compra Asistida?',
-    answer: 'Si no tienes tarjeta internacional o se te complica comprar en tiendas gringas o chinas, simplemente envíanos el enlace del producto que deseas comprar. Nosotros cotizamos en minutos, realizamos la compra de forma segura, procesamos el pago en la plataforma y tú nos pagas localmente mediante SINPE o transferencia.'
+    answer: 'Si no tienes tarjeta internacional o se te dificulta comprar en tiendas de Estados Unidos, China o Colombia, simplemente envíanos el enlace del producto que deseas. Nosotros cotizamos en minutos, realizamos la compra de forma segura por ti y tú nos pagas localmente mediante SINPE o transferencia.'
   },
   {
     category: 'tarifas',
@@ -39,17 +39,17 @@ const faqItems = [
   {
     category: 'casillero',
     question: '¿Qué es la consolidación y cómo puedo solicitarla?',
-    answer: 'La consolidación consiste en agrupar varias compras diferentes que llegan a tu casillero de Miami para enviarlas en un solo paquete unificado. Esto te ayuda a ahorrar en los costos de envío. Puedes solicitar este servicio directamente desde tu panel de usuario antes de autorizar el despacho de tus paquetes.'
+    answer: 'La consolidación consiste en agrupar varias compras diferentes que llegan a tus casilleros (por ejemplo, en Miami) para enviarlas en un solo paquete unificado. Esto te ayuda a ahorrar al máximo en los costos de envío hacia Costa Rica. Puedes solicitar este servicio a través de nuestro equipo o panel de usuario.'
   },
   {
     category: 'casillero',
     question: '¿Cómo rastreo el estado de mis paquetes?',
-    answer: 'Una vez que tus paquetes ingresen a nuestra bodega en Miami, recibirás una notificación por correo electrónico con tu número de guía de Mundo Express. Podrás ingresar ese número en la sección de rastreo en nuestro sitio web para ver las actualizaciones del estado de tu paquete en tiempo real.'
+    answer: 'Una vez que tus paquetes ingresen a cualquiera de nuestras bodegas de origen (Miami, China o Colombia), recibirás una notificación automática con tu número de guía de Mundo Express. Podrás ingresar ese número en la sección de rastreo en nuestro sitio web para ver el estado de tu envío en tiempo real.'
   },
   {
     category: 'compras',
     question: '¿Puedo comprar en tiendas de China como Taobao o 1688?',
-    answer: '¡Claro que sí! Puedes comprar en cualquier plataforma china. Si no sabes cómo comprar en plataformas locales como Taobao o 1688.com (que requieren cuentas y métodos de pago chinos), puedes enviarnos los links y nosotros nos encargamos de todo a través de nuestro servicio de Compra Asistida en China.'
+    answer: '¡Claro que sí! Puedes comprar directamente usando tu casillero de China. Si no sabes cómo comprar en plataformas locales como Taobao, Tmall o 1688.com (que requieren cuentas y métodos de pago chinos), puedes enviarnos los links y nosotros nos encargamos de toda la compra y logística mediante nuestro servicio de Compra Asistida.'
   }
 ];
 
