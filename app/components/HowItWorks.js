@@ -6,19 +6,19 @@ const steps = [
   {
     number: '01',
     title: 'Regístrate',
-    desc: 'Regístrate gratis y obtén tu dirección personal en Miami al instante en menos de 2 minutos.',
+    desc: 'Regístrate gratis y obtén tus direcciones de casilleros internacionales al instante.',
     img: '/assets/registrate.PNG'
   },
   {
     number: '02',
     title: 'Compra globalmente',
-    desc: 'Comprá en cualquier tienda de USA o el mundo que haga entregas en Miami.',
+    desc: 'Comprá en cualquier tienda de USA, China o del resto del mundo.',
     img: '/assets/compra en linea.PNG'
   },
   {
     number: '03',
     title: 'Envío a CR',
-    desc: 'Recibimos tu compra en nuestra bodega de Miami y la enviamos a Costa Rica de inmediato.',
+    desc: 'Recibimos tus compras en nuestras bodegas (Miami, China, Colombia) y las enviamos a Costa Rica.',
     img: '/assets/envios a cr.PNG'
   },
   {
@@ -35,7 +35,7 @@ export default function HowItWorks() {
       <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: "5rem" }}>
           <h2 style={{ fontSize: "3.5rem", fontWeight: 800, textTransform: "uppercase" }}>¿Cómo Funciona?</h2>
-          <p style={{ color: "var(--text-light)", fontSize: "1.1rem", marginTop: "1rem" }}>En solo 4 pasos, tus compras en USA llegan a tu puerta en Costa Rica.</p>
+          <p style={{ color: "var(--text-light)", fontSize: "1.1rem", marginTop: "1rem" }}>En solo 4 pasos, tus compras internacionales llegan a tu puerta en Costa Rica.</p>
         </div>
 
         <div className="steps-grid" style={{ 
