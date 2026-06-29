@@ -151,7 +151,7 @@ export default function StoreGrid() {
               background: activeTab === 'usa' 
                 ? "linear-gradient(135deg, #002868 0%, #bf0a30 100%)" // USA: Exact Blue & Red
                 : activeTab === 'china'
-                ? "linear-gradient(135deg, #de2910 0%, #ffde00 100%)" // China: Exact Red & Yellow
+                ? "linear-gradient(135deg, #de2910 0%, #b31010 100%)" // China: Deep Red Gradient
                 : "linear-gradient(135deg, #fcd116 0%, #003893 50%, #ce1126 100%)", // Colombia: Exact Yellow, Blue, Red
               borderRadius: "12px",
               boxShadow: activeTab === 'usa'
