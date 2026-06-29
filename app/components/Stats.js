@@ -31,7 +31,7 @@ function Counter({ from, to, duration = 1.5, suffix = "", prefix = "" }) {
     return () => cancelAnimationFrame(animationFrameId);
   }, [isInView, from, to, duration]);
 
-  return <span ref={ref}>{prefix}{count}{suffix}</span>;
+  return <span ref={ref}>{prefix}{count.toLocaleString()}{suffix}</span>;
 }
 
 export default function Stats() {
@@ -57,7 +57,7 @@ export default function Stats() {
             style={{ gridColumn: "1 / -1" }}
           >
             <div className="stat-number-big">
-              <Counter from={0} to={40} prefix="+" suffix="K" />
+              <Counter from={0} to={1000} prefix="+" />
             </div>
             <div className="stat-label">Clientes activos</div>
           </motion.div>
@@ -69,7 +69,7 @@ export default function Stats() {
             transition={{ delay: 0.15 }}
           >
             <div className="stat-number-medium">
-              <Counter from={0} to={500} prefix="+" suffix="K" />
+              <Counter from={0} to={13600} prefix="+" />
             </div>
             <div className="stat-label">Paquetes entregados</div>
           </motion.div>
@@ -81,7 +81,7 @@ export default function Stats() {
             transition={{ delay: 0.25 }}
           >
             <div className="stat-number-medium">
-              <Counter from={0} to={3} />-<Counter from={0} to={5} />
+              <Counter from={0} to={5} />-<Counter from={0} to={7} />
             </div>
             <div className="stat-label">Días hábiles promedio</div>
           </motion.div>

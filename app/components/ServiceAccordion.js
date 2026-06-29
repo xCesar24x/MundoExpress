@@ -6,9 +6,9 @@ import { Package, Handshake, Briefcase } from '@phosphor-icons/react';
 const plans = [
   {
     id: '01',
-    title: 'DIRECCIÓN PERSONAL EN MIAMI',
-    desc: 'Recibí una dirección en Miami exclusiva para vos. Comprá en cualquier tienda de USA y nosotros nos encargamos de traerlo hasta tu puerta.',
-    features: ['Dirección personal en Florida', 'Consolidación de hasta 10 paquetes', 'Entrega a domicilio o sucursal', 'Rastreo en tiempo real'],
+    title: 'DIRECCIÓN PERSONAL INTERNACIONAL',
+    desc: 'Recibí una dirección en Miami, Colombia o China exclusiva para vos. Comprá en cualquier tienda online y nosotros nos encargamos de traerlo hasta tu puerta.',
+    features: ['Dirección personal en 3 localidades', 'Consolidación gratuita', 'Entrega a domicilio'],
     icon: Package,
     img: '/assets/01. DIRECCIÓN PERSONAL EN MIAMI.PNG'
   },
@@ -24,7 +24,7 @@ const plans = [
     id: '03',
     title: 'MUNDO BUSINESS',
     desc: 'Soluciones logísticas completas para importadores, pymes y grandes empresas. Tarifas especiales por volumen y carga consolidada.',
-    features: ['Agenciamiento aduanal', 'Flete aéreo y marítimo', 'Bodegaje', 'Atención ejecutiva 24/7'],
+    features: ['Agenciamiento aduanal', 'Flete aéreo y marítimo', 'Bodegaje', 'Atención ejecutiva'],
     icon: Briefcase,
     img: '/assets/03. MUNDO BUSINESS.PNG'
   }
