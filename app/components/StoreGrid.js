@@ -128,13 +128,17 @@ export default function StoreGrid() {
 
         {/* Dynamic Segmented Switcher */}
         <div style={{ 
-          display: "inline-flex", 
+          display: "grid", 
+          gridTemplateColumns: "repeat(3, 1fr)",
           padding: "6px", 
           background: "rgba(68, 68, 68, 0.05)", 
           borderRadius: "16px",
           border: "1px solid rgba(68, 68, 68, 0.08)",
           position: "relative",
-          marginBottom: "4rem"
+          marginBottom: "4rem",
+          width: "100%",
+          maxWidth: "620px",
+          marginInline: "auto"
         }}>
           {/* Animated Sliding Pill */}
           <motion.div 
@@ -145,13 +149,13 @@ export default function StoreGrid() {
               width: "calc(33.33% - 4px)",
               height: "calc(100% - 12px)",
               background: activeTab === 'usa' 
-                ? "linear-gradient(135deg, #0a2540 0%, #bf0a30 100%)" // USA: Deep Blue & Red
+                ? "linear-gradient(135deg, #00205b 0%, #c8102e 100%)" // USA: Official Blue & Red
                 : activeTab === 'china'
-                ? "linear-gradient(135deg, #de2910 0%, #f0ad4e 100%)" // China: Red & Yellow Gold
+                ? "linear-gradient(135deg, #de2910 0%, #ffde00 100%)" // China: Official Red & Yellow
                 : "linear-gradient(135deg, #fcd116 0%, #003893 50%, #ce1126 100%)", // Colombia: Yellow, Blue, Red
               borderRadius: "12px",
               boxShadow: activeTab === 'usa'
-                ? "0 4px 12px rgba(10, 37, 64, 0.3)"
+                ? "0 4px 12px rgba(0, 32, 91, 0.3)"
                 : activeTab === 'china'
                 ? "0 4px 12px rgba(222, 41, 16, 0.3)"
                 : "0 4px 12px rgba(252, 209, 22, 0.3)",
@@ -178,7 +182,8 @@ export default function StoreGrid() {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 style={{
-                  padding: "0.8rem 2rem",
+                  padding: "0.8rem 0",
+                  width: "100%",
                   fontSize: "1rem",
                   fontWeight: "700",
                   border: "none",
@@ -189,6 +194,7 @@ export default function StoreGrid() {
                   zIndex: 2,
                   display: "flex",
                   alignItems: "center",
+                  justifyContent: "center",
                   gap: "0.8rem",
                   transition: "color 0.2s ease"
                 }}
