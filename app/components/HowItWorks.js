@@ -6,7 +6,7 @@ const steps = [
   {
     number: '01',
     title: 'Regístrate',
-    desc: 'Regístrate gratis y obtén tus direcciones de casilleros internacionales al instante.',
+    desc: 'Afíliate gratis y obtén tus direcciones de casilleros internacionales al instante.',
     img: '/assets/registrate.PNG'
   },
   {
