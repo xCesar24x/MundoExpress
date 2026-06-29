@@ -18,35 +18,33 @@ export default function FeedbackButton() {
 
     setIsLoading(true);
     try {
-      // Reemplaza 'FORM_ID' con tu ID de formulario de Formspree (ej. 'xoqgkyap')
-      // configurado para enviar correos a info@mundoexpresscr.com.
-      // Regístrate gratis en https://formspree.io para obtenerlo.
-      const formId = "mnjkzoke"; 
-      
-      if (formId === "FORM_ID") {
-        // Simulación en local si aún no se ha configurado el ID real
-        console.log("Simulación de envío a info@mundoexpresscr.com:", { subject, email, message });
-        await new Promise((resolve) => setTimeout(resolve, 800)); // Simular retraso de red
+      // Form IDs individuales por tipo de feedback en Formspree
+      const formIds = {
+        sugerencia:   "mnjkzoke", // Sugerencias (confirmar si cambió)
+        error:        "mpqglebd", // Reportar un error
+        felicitacion: "xbdvkewp", // Felicitación
+        otro:         "xjgqod11", // Otro asunto
+      };
+
+      const formId = formIds[subject] || formIds.sugerencia;
+
+      const response = await fetch(`https://formspree.io/f/${formId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          tipo: subject,
+          email: email || "No proporcionado",
+          mensaje: message
+        })
+      });
+
+      if (response.ok) {
         setIsSubmitted(true);
       } else {
-        const response = await fetch(`https://formspree.io/f/${formId}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-          },
-          body: JSON.stringify({
-            tipo: subject,
-            email: email || "No proporcionado",
-            mensaje: message
-          })
-        });
-
-        if (response.ok) {
-          setIsSubmitted(true);
-        } else {
-          alert("Hubo un problema al enviar tu sugerencia. Por favor intenta de nuevo.");
-        }
+        alert("Hubo un problema al enviar tu sugerencia. Por favor intenta de nuevo.");
       }
     } catch (error) {
       console.error(error);
