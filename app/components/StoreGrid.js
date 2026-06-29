@@ -49,6 +49,29 @@ const chinaStores = [
   { name: "Suning", url: "https://www.suning.com", img: "/assets/suning.png" }
 ];
 
+const colombiaStores = [
+  { name: "Mercado Libre", url: "https://www.mercadolibre.com.co", img: "/assets/424-4241106_mercadolibre-logo-de-mercado-libre-hd-png-download.png" },
+  { name: "Éxito", url: "https://www.exito.com", img: "/assets/Almacenes_exito_logo.svg.png" },
+  { name: "Falabella", url: "https://www.falabella.com.co", img: "/assets/Falabella.svg.png" },
+  { name: "Alkosto", url: "https://www.alkosto.com", img: "/assets/2016Alkosto.webp" },
+  { name: "Olímpica", url: "https://www.olimpica.com", img: "/assets/Olimpical.png" },
+  { name: "Arturo Calle", url: "https://www.arturocalle.com", img: "/assets/Arturo_Calle_logo.svg.png" },
+  { name: "Totto", url: "https://co.totto.com", img: "/assets/Totto.png" },
+  { name: "Studio F", url: "https://www.studiof.com.co", img: "/assets/png-transparent-mazda-studio-f-clothing-fashion-shoe-mazda-text-fashion-logo.png" },
+  { name: "Vélez", url: "https://www.velez.com.co", img: "/assets/velez-logo-png_seeklogo-460133.png" },
+  { name: "Koaj", url: "https://www.koaj.co", img: "/assets/koaj-logo-300x300.png" },
+  { name: "Gef", url: "https://www.gef.co", img: "/assets/GEF-1.png" },
+  { name: "Leonisa", url: "https://www.leonisa.com/co/", img: "/assets/hisotria-leonisa.webp" },
+  { name: "Homecenter", url: "https://www.homecenter.com.co", img: "/assets/sodimac-homecenter-logo-0.png" },
+  { name: "Ktronix", url: "https://www.ktronix.com", img: "/assets/ktronix.png" },
+  { name: "Panamericana", url: "https://www.panamericana.com.co", img: "/assets/panamericana.png" },
+  { name: "iShop Colombia", url: "https://www.ishopcolombia.com", img: "/assets/0-ISHOP-1.png" },
+  { name: "Pepe Ganga", url: "https://www.pepeganga.com", img: "/assets/pepeganga.png" },
+  { name: "Decathlon", url: "https://www.decathlon.com.co", img: "/assets/decathlon.png" },
+  { name: "Farmatodo", url: "https://www.farmatodo.com.co", img: "/assets/farmatodo-logo-png_seeklogo-391009.png" },
+  { name: "Cromantic", url: "https://www.cromantic.com", img: "/assets/cromantic.png" }
+];
+
 const containerVariants = {
   hidden: { opacity: 0 },
   show: {
@@ -87,7 +110,7 @@ const itemVariants = {
 
 export default function StoreGrid() {
   const [activeTab, setActiveTab] = useState('usa');
-  const currentStores = activeTab === 'usa' ? usaStores : chinaStores;
+  const currentStores = activeTab === 'usa' ? usaStores : activeTab === 'china' ? chinaStores : colombiaStores;
 
   return (
     <section style={{ padding: "8rem 2rem", background: "#FFFFFF", color: "var(--bg-dark)", textAlign: "center", position: "relative", overflow: "hidden" }}>
@@ -100,7 +123,7 @@ export default function StoreGrid() {
           ¿DÓNDE COMPRAR?
         </h2>
         <p style={{ color: "var(--dark-gray)", fontSize: "1.1rem", marginTop: "1rem", marginBottom: "4rem", maxWidth: "600px", marginInline: "auto" }}>
-          Explore las principales tiendas recomendadas en Estados Unidos y China para realizar sus compras de forma segura.
+          Explore las principales tiendas recomendadas en Estados Unidos, China y Colombia para realizar sus compras de forma segura.
         </p>
 
         {/* Dynamic Segmented Switcher */}
@@ -118,8 +141,8 @@ export default function StoreGrid() {
             style={{
               position: "absolute",
               top: "6px",
-              left: activeTab === 'usa' ? "6px" : "calc(50% + 2px)",
-              width: "calc(50% - 8px)",
+              left: activeTab === 'usa' ? "6px" : activeTab === 'china' ? "calc(33.33% + 2px)" : "calc(66.66% - 2px)",
+              width: "calc(33.33% - 4px)",
               height: "calc(100% - 12px)",
               background: "var(--primary)",
               borderRadius: "12px",
@@ -171,6 +194,27 @@ export default function StoreGrid() {
           >
             <span style={{ fontSize: "1.2rem", lineHeight: 1 }}>🇨🇳</span>
             <span>China</span>
+          </button>
+          <button 
+            onClick={() => setActiveTab('colombia')}
+            style={{
+              padding: "0.8rem 2.5rem",
+              fontSize: "1rem",
+              fontWeight: "700",
+              border: "none",
+              cursor: "pointer",
+              borderRadius: "12px",
+              background: "transparent",
+              color: activeTab === 'colombia' ? "white" : "var(--dark-gray)",
+              zIndex: 2,
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              transition: "color 0.2s ease"
+            }}
+          >
+            <span style={{ fontSize: "1.2rem", lineHeight: 1 }}>🇨🇴</span>
+            <span>Colombia</span>
           </button>
         </div>
 
