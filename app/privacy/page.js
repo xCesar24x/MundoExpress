@@ -17,7 +17,7 @@ export default function PrivacyPage() {
     },
     {
       title: "2. Uso de la información",
-      content: "La información recolectada se utiliza estrictamente para operar sus servicios de casillero y transporte, incluyendo: gestionar el ingreso de mercancías en Miami, realizar el trámite de nacionalización ante la Dirección General de Aduanas de Costa Rica, enviarle notificaciones automáticas sobre el estado de sus paquetes y coordinar la entrega física en su domicilio."
+      content: "La información recolectada se utiliza estrictamente para operar sus servicios de casillero y transporte, incluyendo: gestionar el ingreso de mercancías en nuestras bodegas internacionales (Miami, China y Colombia), realizar el trámite de nacionalización ante la Dirección General de Aduanas de Costa Rica, enviarle notificaciones automáticas sobre el estado de sus paquetes y coordinar la entrega física en su domicilio."
     },
     {
       title: "3. Confidencialidad y Terceros",

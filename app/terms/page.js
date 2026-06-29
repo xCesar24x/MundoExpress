@@ -19,27 +19,27 @@ export default function TermsPage() {
     {
       num: "02",
       title: "Dirección de Envío y Prealertas",
-      content: "El cliente debe enviar sus compras a la dirección asignada en Miami con su código de casillero único (ME-XXXX) visible en la etiqueta del paquete. Es responsabilidad exclusiva del cliente prealertar sus compras adjuntando la factura comercial correspondiente antes del ingreso de la mercancía a nuestra bodega de Miami."
+      content: "El cliente debe enviar sus compras a cualquiera de las direcciones internacionales asignadas (Miami, China o Colombia) con su código de casillero único visible en la etiqueta del paquete. Es responsabilidad del cliente prealertar sus compras adjuntando la factura comercial correspondiente antes del ingreso de la mercancía a nuestras bodegas de origen."
     },
     {
       num: "03",
       title: "Cargos, Tarifas y Cálculo de Peso",
-      content: "Las tarifas de flete internacional aéreo se calculan sobre el peso físico real de la mercancía en libras (lbs), a menos que se trate de mercancías con dimensiones extraordinarias que requieran flete consolidado especial. El costo final incluirá flete, trámites de nacionalización e impuestos correspondientes según lo dictado por el Ministerio de Hacienda de Costa Rica."
+      content: "Las tarifas de flete internacional se calculan sobre el peso físico real de la mercancía en kilos. El costo final incluirá flete, trámites de nacionalización e impuestos correspondientes según lo dictado por el Ministerio de Hacienda de Costa Rica para entregar el paquete libre de cargos adicionales a tu domicilio."
     },
     {
       num: "04",
       title: "Mercancía Prohibida y Restricciones",
-      content: "El cliente se compromete a no enviar mercancía prohibida por leyes aduaneras e internacionales de aviación, incluyendo armas de fuego (reales o de juguete), explosivos, químicos inflamables, pirotecnia, drogas, y mercancías con marcas falsificadas. Cosméticos, alimentos y suplementos de salud requieren permisos especiales del Ministerio de Salud."
+      content: "El cliente se compromete a no enviar mercancía de prohibición absoluta por leyes aduaneras nacionales e internacionales, incluyendo armas de fuego (reales, de juguete, balines o aire comprimido), drogas, explosivos o mercancía ilegal. Otros artículos de importación restringida pueden requerir trámites adicionales de nacionalización."
     },
     {
       num: "05",
       title: "Tiempos de Tránsito e Importación",
-      content: "Nuestros tiempos de entrega habituales son de 3 a 5 días hábiles a partir de la llegada del paquete a nuestra bodega en Miami y tras contar con la factura comercial completa. Mundo Express no se responsabiliza por retrasos debidos a revisiones físicas aleatorias por parte de la Aduana de Costa Rica o huelgas de puertos/aeropuertos."
+      content: "Nuestros tiempos de entrega habituales son de 5 a 7 días hábiles a partir de la llegada del paquete a nuestras bodegas de origen y tras contar con la factura comercial completa. Mundo Express no se responsabiliza por retrasos debidos a revisiones físicas aleatorias por parte de la Aduana de Costa Rica o huelgas de puertos/aeropuertos."
     },
     {
       num: "06",
       title: "Seguro y Límite de Responsabilidad",
-      content: "Todos los paquetes despachados cuentan con cobertura de seguro contra pérdida total durante el tránsito internacional desde Miami hasta nuestras bodegas en Costa Rica, siempre y cuando se cuente con la factura comercial que demuestre el valor de la mercancía. La cobertura no aplica para paquetes mal embalados por el vendedor de origen."
+      content: "Todos los paquetes despachados cuentan con cobertura de seguro contra pérdida total durante el tránsito internacional desde nuestras bodegas en origen (Miami, China o Colombia) hasta nuestras bodegas en Costa Rica, siempre y cuando se cuente con la factura comercial que demuestre el valor de la mercancía. La cobertura no aplica para paquetes mal embalados por el vendedor de origen."
     }
   ];
 

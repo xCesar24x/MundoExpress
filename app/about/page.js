@@ -32,7 +32,7 @@ export default function AboutPage() {
               CONECTANDO SU MUNDO
             </h1>
             <p style={{ marginTop: "1.5rem", color: "var(--text-light)", fontSize: "1.2rem", lineHeight: 1.6 }}>
-              Somos Mundo Express, su aliado estratégico en importación, logística y compras asistidas desde Estados Unidos y China.
+              Somos Mundo Express, su aliado estratégico en importación, logística y compras asistidas desde Estados Unidos, China y Colombia.
             </p>
           </div>
         </section>
