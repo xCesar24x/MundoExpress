@@ -149,13 +149,13 @@ export default function StoreGrid() {
               width: "calc(33.33% - 4px)",
               height: "calc(100% - 12px)",
               background: activeTab === 'usa' 
-                ? "linear-gradient(135deg, #00205b 0%, #c8102e 100%)" // USA: Official Blue & Red
+                ? "linear-gradient(135deg, #002868 0%, #bf0a30 100%)" // USA: Exact Blue & Red
                 : activeTab === 'china'
-                ? "linear-gradient(135deg, #de2910 0%, #ffde00 100%)" // China: Official Red & Yellow
-                : "linear-gradient(135deg, #fcd116 0%, #003893 50%, #ce1126 100%)", // Colombia: Yellow, Blue, Red
+                ? "linear-gradient(135deg, #de2910 0%, #ffde00 100%)" // China: Exact Red & Yellow
+                : "linear-gradient(135deg, #fcd116 0%, #003893 50%, #ce1126 100%)", // Colombia: Exact Yellow, Blue, Red
               borderRadius: "12px",
               boxShadow: activeTab === 'usa'
-                ? "0 4px 12px rgba(0, 32, 91, 0.3)"
+                ? "0 4px 12px rgba(0, 40, 104, 0.3)"
                 : activeTab === 'china'
                 ? "0 4px 12px rgba(222, 41, 16, 0.3)"
                 : "0 4px 12px rgba(252, 209, 22, 0.3)",
@@ -172,7 +172,7 @@ export default function StoreGrid() {
           ].map((tab) => {
             const on = activeTab === tab.id;
             const badgeBg = tab.id === 'usa'
-              ? "linear-gradient(90deg, #00205B 0%, #FFFFFF 50%, #C8102E 100%)"
+              ? "linear-gradient(90deg, #002868 0%, #FFFFFF 50%, #BF0A30 100%)"
               : tab.id === 'china'
               ? "linear-gradient(90deg, #DE2910 0%, #FFDE00 100%)"
               : "linear-gradient(90deg, #FCD116 0%, #003893 50%, #CE1126 100%)";
