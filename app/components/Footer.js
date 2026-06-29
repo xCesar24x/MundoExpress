@@ -163,7 +163,7 @@ export default function Footer() {
 
         {/* Column 4: Casillero Acciones */}
         <div className="footer-actions" style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-          <h4 style={{ color: "var(--text-main)", fontSize: "1.1rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "1px" }}>Mi Casillero</h4>
+          <h4 style={{ color: "var(--text-main)", fontSize: "1.1rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "1px" }}>Mi Perfil</h4>
           <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
             <motion.a 
               href="https://sistema.mundoexpresscr.com/register" 
