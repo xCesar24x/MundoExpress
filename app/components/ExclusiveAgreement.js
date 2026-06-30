@@ -2,137 +2,144 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Star } from '@phosphor-icons/react';
 
 export default function ExclusiveAgreement() {
   return (
     <section style={{ 
-      padding: "3rem 1rem", 
+      padding: "2rem 1rem",
       background: "var(--bg-dark)",
-      position: "relative",
-      overflow: "hidden",
       display: "flex",
       justifyContent: "center",
-      alignItems: "center"
+      alignItems: "center",
+      position: "relative",
+      overflow: "hidden"
     }}>
-      {/* Background glow for luxury feel */}
+      {/* Subtle dark background glow */}
       <div style={{
         position: "absolute",
         top: "50%",
         left: "50%",
         transform: "translate(-50%, -50%)",
-        width: "60vw",
-        height: "20vw",
-        background: "radial-gradient(ellipse, rgba(212, 175, 55, 0.15) 0%, rgba(0,0,0,0) 70%)",
-        filter: "blur(60px)",
+        width: "500px",
+        height: "200px",
+        background: "radial-gradient(ellipse, rgba(212, 175, 55, 0.08) 0%, transparent 70%)",
         pointerEvents: "none"
       }} />
 
-      <motion.div 
-        initial={{ opacity: 0, y: 30 }}
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 1, ease: [0.25, 1, 0.5, 1] }}
-        style={{
-          width: "100%",
-          maxWidth: "1000px",
-          position: "relative",
-          borderRadius: "24px",
-          padding: "1px", // For gradient border
-          background: "linear-gradient(135deg, rgba(212,175,55,0.8) 0%, rgba(212,175,55,0.2) 30%, rgba(0,0,0,0) 50%, rgba(212,175,55,0.2) 70%, rgba(212,175,55,0.8) 100%)",
-          boxShadow: "0 20px 50px -10px rgba(0,0,0,0.8), 0 0 30px rgba(212, 175, 55, 0.15)"
-        }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.9, ease: [0.25, 1, 0.5, 1] }}
+        style={{ position: "relative", display: "inline-block" }}
       >
-        {/* Shimmer animation on border */}
-        <motion.div 
-          animate={{ backgroundPosition: ["0% 0%", "200% 0%"] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-          style={{
-            position: "absolute",
-            inset: 0,
-            borderRadius: "24px",
-            background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)",
-            backgroundSize: "200% 100%",
-            zIndex: 0,
-            opacity: 0.5
-          }}
-        />
+        {/* CSS keyframe for rotating golden light — injected via style tag */}
+        <style>{`
+          @keyframes rotate-gold {
+            0%   { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+          .gold-ring-outer {
+            animation: rotate-gold 4s linear infinite;
+          }
+        `}</style>
 
+        {/* Rotating conic border container */}
         <div style={{
-          background: "linear-gradient(180deg, #111 0%, #0a0a0a 100%)",
-          borderRadius: "23px",
-          padding: "3rem 2rem",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
           position: "relative",
-          zIndex: 1,
-          overflow: "hidden"
+          borderRadius: "20px",
+          padding: "2px",
+          background: "transparent",
+          width: "fit-content"
         }}>
-          
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            style={{ display: "flex", alignItems: "center", gap: "0.8rem", marginBottom: "1.5rem" }}
-          >
-            <Star weight="fill" color="#D4AF37" size={24} style={{ filter: "drop-shadow(0 0 10px rgba(212,175,55,0.8))" }} />
-            <h4 style={{ 
-              color: "#D4AF37", 
-              textTransform: "uppercase", 
-              letterSpacing: "4px",
-              fontSize: "0.9rem",
-              fontWeight: 700,
-              margin: 0
-            }}>
-              Convenio Exclusivo
-            </h4>
-            <Star weight="fill" color="#D4AF37" size={24} style={{ filter: "drop-shadow(0 0 10px rgba(212,175,55,0.8))" }} />
-          </motion.div>
+          {/* Rotating conic-gradient "light" ring */}
+          <div className="gold-ring-outer" style={{
+            position: "absolute",
+            inset: "-2px",
+            borderRadius: "22px",
+            background: "conic-gradient(from 0deg, transparent 60%, #D4AF37 70%, #FFD700 75%, #FFF5A0 78%, #FFD700 82%, #D4AF37 87%, transparent 100%)",
+            zIndex: 0
+          }} />
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-            style={{ 
-              background: "white", 
-              padding: "1.5rem 3rem", 
-              borderRadius: "16px",
-              boxShadow: "0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(0,0,0,0.05)",
-              marginBottom: "1.5rem",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              border: "1px solid rgba(212,175,55,0.3)"
-            }}
-          >
-            <img 
-              src="/assets/exclusivo.png.jpeg" 
-              alt="Amerijet Exclusive Agreement" 
+          {/* Static dark base behind (clips the inner content) */}
+          <div style={{
+            position: "absolute",
+            inset: "2px",
+            borderRadius: "18px",
+            background: "#0a0a0a",
+            zIndex: 1
+          }} />
+
+          {/* Actual card content */}
+          <div style={{
+            position: "relative",
+            zIndex: 2,
+            background: "linear-gradient(160deg, #111111 0%, #0d0d0d 100%)",
+            borderRadius: "18px",
+            padding: "2rem 3rem",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "1.2rem",
+            minWidth: "480px",
+            maxWidth: "600px"
+          }}>
+            {/* Top badge */}
+            <div style={{ display: "flex", alignItems: "center", gap: "0.8rem" }}>
+              <span style={{ display: "block", width: "30px", height: "1px", background: "linear-gradient(to right, transparent, #D4AF37)" }} />
+              <p style={{
+                margin: 0,
+                color: "#D4AF37",
+                fontSize: "0.7rem",
+                fontWeight: 700,
+                letterSpacing: "5px",
+                textTransform: "uppercase"
+              }}>Convenio Exclusivo</p>
+              <span style={{ display: "block", width: "30px", height: "1px", background: "linear-gradient(to left, transparent, #D4AF37)" }} />
+            </div>
+
+            {/* Amerijet logo */}
+            <motion.div
+              whileHover={{ scale: 1.03 }}
+              transition={{ type: "spring", stiffness: 300 }}
               style={{
-                height: "80px",
-                objectFit: "contain",
-                filter: "drop-shadow(0 4px 6px rgba(0,0,0,0.1))"
+                background: "white",
+                borderRadius: "12px",
+                padding: "1rem 2.5rem",
+                boxShadow: "0 8px 24px rgba(0,0,0,0.6), 0 0 0 1px rgba(212,175,55,0.2)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
               }}
-            />
-          </motion.div>
+            >
+              <img
+                src="/assets/exclusivo.png.jpeg"
+                alt="Amerijet Exclusive Partner"
+                style={{ height: "55px", objectFit: "contain", display: "block" }}
+              />
+            </motion.div>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.7, duration: 1 }}
-            style={{
-              color: "rgba(255,255,255,0.8)",
-              textAlign: "center",
-              maxWidth: "600px",
-              fontSize: "1.05rem",
-              lineHeight: "1.6",
+            {/* Small ornamental divider */}
+            <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", width: "100%" }}>
+              <span style={{ flex: 1, height: "1px", background: "linear-gradient(to right, transparent, rgba(212,175,55,0.4))" }} />
+              <span style={{ color: "#D4AF37", fontSize: "0.6rem" }}>✦</span>
+              <span style={{ flex: 1, height: "1px", background: "linear-gradient(to left, transparent, rgba(212,175,55,0.4))" }} />
+            </div>
+
+            {/* Copy */}
+            <p style={{
               margin: 0,
-              fontWeight: 300
-            }}
-          >
-            Nuestra alianza estratégica de primer nivel nos permite garantizar vuelos directos, manejo prioritario y la máxima seguridad en todos sus envíos internacionales.
-          </motion.p>
+              textAlign: "center",
+              color: "rgba(255,255,255,0.55)",
+              fontSize: "0.82rem",
+              lineHeight: "1.65",
+              fontWeight: 300,
+              letterSpacing: "0.2px"
+            }}>
+              Alianza estratégica de primer nivel que garantiza vuelos directos,<br />
+              manejo prioritario y máxima seguridad en cada envío.
+            </p>
+          </div>
         </div>
       </motion.div>
     </section>
