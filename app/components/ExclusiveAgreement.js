@@ -14,7 +14,7 @@ export default function ExclusiveAgreement() {
       position: "relative",
       overflow: "hidden"
     }}>
-      {/* Subtle dark background glow */}
+      {/* Subtle gold glow in background */}
       <div style={{
         position: "absolute",
         top: "50%",
@@ -22,7 +22,7 @@ export default function ExclusiveAgreement() {
         transform: "translate(-50%, -50%)",
         width: "500px",
         height: "200px",
-        background: "radial-gradient(ellipse, rgba(212, 175, 55, 0.08) 0%, transparent 70%)",
+        background: "radial-gradient(ellipse, rgba(212, 175, 55, 0.06) 0%, transparent 70%)",
         pointerEvents: "none"
       }} />
 
@@ -33,7 +33,7 @@ export default function ExclusiveAgreement() {
         transition={{ duration: 0.9, ease: [0.25, 1, 0.5, 1] }}
         style={{ position: "relative", display: "inline-block" }}
       >
-        {/* CSS keyframe for rotating golden light — injected via style tag */}
+        {/* CSS keyframe for rotating golden light */}
         <style>{`
           @keyframes rotate-gold {
             0%   { transform: translate(-50%, -50%) rotate(0deg); }
@@ -44,16 +44,16 @@ export default function ExclusiveAgreement() {
           }
         `}</style>
 
-        {/* Rotating conic border container */}
+        {/* Rotating border container */}
         <div style={{
           position: "relative",
           borderRadius: "20px",
-          padding: "2px",
+          padding: "4px",
           background: "transparent",
           width: "fit-content",
           overflow: "hidden"
         }}>
-          {/* Rotating conic-gradient "light" ring — oversized so corners always stay covered */}
+          {/* Rotating conic-gradient gold ring */}
           <div className="gold-ring-outer" style={{
             position: "absolute",
             top: "50%",
@@ -61,25 +61,25 @@ export default function ExclusiveAgreement() {
             transform: "translate(-50%, -50%) rotate(0deg)",
             width: "200%",
             height: "200%",
-            background: "conic-gradient(from 0deg, transparent 60%, #B8860B 67%, #D4AF37 71%, #FFE57A 74%, #D4AF37 77%, #B8860B 82%, transparent 88%)",
+            background: "conic-gradient(from 0deg, transparent 40%, #9a7a00 52%, #D4AF37 58%, #FFE57A 63%, #FFF5A0 66%, #FFE57A 69%, #D4AF37 74%, #9a7a00 80%, transparent 88%)",
             zIndex: 0
           }} />
 
-          {/* Static dark base behind (clips the inner content) */}
+          {/* Dark base layer */}
           <div style={{
             position: "absolute",
-            inset: "2px",
-            borderRadius: "18px",
+            inset: "4px",
+            borderRadius: "16px",
             background: "#0a0a0a",
             zIndex: 1
           }} />
 
-          {/* Actual card content */}
+          {/* Card content */}
           <div style={{
             position: "relative",
             zIndex: 2,
             background: "linear-gradient(160deg, #111111 0%, #0d0d0d 100%)",
-            borderRadius: "18px",
+            borderRadius: "16px",
             padding: "2rem 3rem",
             display: "flex",
             flexDirection: "column",
@@ -123,7 +123,7 @@ export default function ExclusiveAgreement() {
               />
             </motion.div>
 
-            {/* Small ornamental divider */}
+            {/* Ornamental divider */}
             <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", width: "100%" }}>
               <span style={{ flex: 1, height: "1px", background: "linear-gradient(to right, transparent, rgba(212,175,55,0.4))" }} />
               <span style={{ color: "#D4AF37", fontSize: "0.6rem" }}>✦</span>
