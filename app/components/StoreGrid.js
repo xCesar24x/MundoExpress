@@ -107,6 +107,7 @@ function MarqueeTrack({ items, direction, speed }) {
           <a
             key={`${store.name}-${i}`}
             href={store.url}
+            className="storegrid-marquee-item"
             target="_blank"
             rel="noopener noreferrer"
             title={store.name}
@@ -186,7 +187,7 @@ export default function StoreGrid() {
         </p>
 
         {/* Country Switcher */}
-        <div style={{
+        <div className="storegrid-tabs" style={{
           display: "grid",
           gridTemplateColumns: "repeat(3, 1fr)",
           padding: "6px",
@@ -233,6 +234,7 @@ export default function StoreGrid() {
             return (
               <button
                 key={tab.id}
+                className="storegrid-tab-btn"
                 onClick={() => setActiveTab(tab.id)}
                 style={{
                   padding: "0.8rem 0",

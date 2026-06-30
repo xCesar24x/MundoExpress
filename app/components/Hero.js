@@ -69,7 +69,7 @@ export default function Hero() {
   ];
 
   const AddressRow = ({ label, value, id }) => (
-    <div style={{ 
+    <div className="hero-address-row" style={{ 
       display: "flex", 
       justifyContent: "space-between", 
       alignItems: "center", 
@@ -233,6 +233,7 @@ export default function Hero() {
             }}
           >
             <motion.div 
+              className="hero-address-modal"
               initial={{ scale: 0.95, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 20 }}
@@ -281,7 +282,7 @@ export default function Hero() {
               </div>
 
               {/* Tab Selector */}
-              <div style={{ 
+              <div className="hero-modal-tabs" style={{ 
                 display: "grid", 
                 gridTemplateColumns: "repeat(3, 1fr)",
                 padding: "6px", 
@@ -325,6 +326,7 @@ export default function Hero() {
                   return (
                     <button 
                       key={tab.id}
+                      className="hero-modal-tab-btn"
                       onClick={() => { setModalTab(tab.id); setCopiedField(null); }}
                       style={{
                         padding: "0.8rem 0",

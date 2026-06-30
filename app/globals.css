@@ -636,4 +636,116 @@ nextjs-portal {
   display: none !important;
 }
 
+/* ================= Mobile Overrides (Safety Bubble) ================= */
+@media (max-width: 768px) {
+  /* Exclusive Agreement */
+  .exclusive-card-wrapper {
+    width: 100% !important;
+  }
+  .exclusive-card-inner {
+    min-width: unset !important;
+    max-width: 100% !important;
+    padding: 1.5rem !important;
+  }
 
+  /* Service Accordion */
+  .service-accordion-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+  .service-accordion-img {
+    min-height: 300px !important;
+  }
+
+  /* Store Grid */
+  .storegrid-tabs {
+    padding: 4px !important;
+  }
+  .storegrid-tab-btn span {
+    display: none !important; /* Hide text on mobile to save space */
+  }
+  .storegrid-tab-btn {
+    padding: 0.5rem 0 !important;
+  }
+  .storegrid-marquee-item {
+    width: 140px !important;
+    height: 80px !important;
+    padding: 0.8rem 1.2rem !important;
+  }
+
+  /* Hero Modal */
+  .hero-address-modal {
+    padding: 1.5rem !important;
+    width: 95% !important;
+  }
+  .hero-modal-tabs {
+    padding: 4px !important;
+  }
+  .hero-modal-tab-btn span {
+    display: none !important; /* Hide text on mobile for modal tabs */
+  }
+  .hero-address-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.5rem !important;
+  }
+  .hero-address-row button {
+    width: 100% !important;
+  }
+
+  /* How It Works */
+  .howitworks-section {
+    padding: 4rem 1.5rem !important;
+  }
+  .howitworks-title {
+    font-size: 2.5rem !important;
+  }
+
+  /* Testimonials */
+  .testimonials-section {
+    padding: 4rem 1.5rem !important;
+  }
+
+  /* Stats */
+  .stats-section {
+    padding: 4rem 1.5rem !important;
+  }
+  .stats-grid-outer {
+    gap: 2rem !important;
+  }
+  .stats-grid-inner {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+
+  /* FAQ */
+  .faq-section {
+    padding: 4rem 1.5rem !important;
+  }
+  .faq-button {
+    padding: 1.25rem 1rem !important;
+    font-size: 1.05rem !important;
+  }
+  .faq-answer {
+    padding: 0 1rem 1.5rem 1rem !important;
+  }
+
+  /* Footer */
+  .footer-section {
+    padding: 3rem 1.5rem 1.5rem 1.5rem !important;
+  }
+
+  /* Feedback */
+  .feedback-btn {
+    bottom: 1.5rem !important;
+    right: 1.5rem !important;
+    padding: 0.6rem 1rem !important;
+  }
+  .feedback-btn span {
+    display: none !important; /* Icon only on mobile */
+  }
+  .feedback-modal {
+    padding: 1.5rem !important;
+    width: 95% !important;
+  }
+}

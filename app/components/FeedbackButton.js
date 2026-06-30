@@ -133,6 +133,7 @@ export default function FeedbackButton() {
     <>
       {/* Floating Button */}
       <motion.button 
+        className="feedback-btn"
         onClick={() => setIsOpen(true)}
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -182,6 +183,7 @@ export default function FeedbackButton() {
             }}
           >
             <motion.div 
+              className="feedback-modal"
               initial={{ scale: 0.95, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 20 }}

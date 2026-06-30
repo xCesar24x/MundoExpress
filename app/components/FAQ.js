@@ -71,7 +71,7 @@ export default function FAQ() {
   });
 
   return (
-    <section id="faq" style={{ 
+    <section id="faq" className="faq-section" style={{ 
       padding: "8rem 2rem", 
       background: "#050505", 
       color: "#FFFFFF",
@@ -252,6 +252,7 @@ export default function FAQ() {
                     }}
                   >
                     <button
+                      className="faq-button"
                       onClick={() => toggleFAQ(index)}
                       style={{
                         width: "100%",
@@ -297,7 +298,7 @@ export default function FAQ() {
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.3, ease: "easeInOut" }}
                         >
-                          <div style={{ 
+                          <div className="faq-answer" style={{ 
                             padding: "0 2rem 2rem 2rem", 
                             color: "rgba(255, 255, 255, 0.75)", 
                             lineHeight: "1.7",

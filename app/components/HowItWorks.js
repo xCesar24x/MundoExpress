@@ -31,10 +31,10 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section style={{ padding: "8rem 2rem", background: "var(--bg-dark)", color: "white" }}>
+    <section className="howitworks-section" style={{ padding: "8rem 2rem", background: "var(--bg-dark)", color: "white" }}>
       <div style={{ maxWidth: "1400px", margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: "5rem" }}>
-          <h2 style={{ fontSize: "3.5rem", fontWeight: 800, textTransform: "uppercase" }}>¿Cómo Funciona?</h2>
+          <h2 className="howitworks-title" style={{ fontSize: "3.5rem", fontWeight: 800, textTransform: "uppercase" }}>¿Cómo Funciona?</h2>
           <p style={{ color: "var(--text-light)", fontSize: "1.1rem", marginTop: "1rem" }}>En solo 4 pasos, tus compras internacionales llegan a tu puerta en Costa Rica.</p>
         </div>
 

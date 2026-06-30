@@ -37,7 +37,7 @@ function Counter({ from, to, duration = 1.5, suffix = "", prefix = "" }) {
 export default function Stats() {
   return (
     <section className="stats-section">
-      <div style={{ maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "4rem", alignItems: "center" }}>
+      <div className="stats-grid-outer" style={{ maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "4rem", alignItems: "center" }}>
         
         <div style={{ textAlign: "left" }}>
           <span className="badge">CIFRAS</span>
@@ -49,7 +49,7 @@ export default function Stats() {
           </p>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "3rem", textAlign: "left" }}>
+        <div className="stats-grid-inner" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "3rem", textAlign: "left" }}>
           <motion.div 
             initial={{ opacity: 0, y: 30 }} 
             whileInView={{ opacity: 1, y: 0 }} 

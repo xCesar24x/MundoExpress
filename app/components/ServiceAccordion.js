@@ -60,7 +60,7 @@ export default function ServiceAccordion() {
           <h2 style={{ fontSize: "3rem", fontWeight: 800, textTransform: "uppercase", marginTop: "2rem" }}>UN PLAN PARA CADA <span style={{ color: "var(--primary)" }}>NECESIDAD</span></h2>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "start" }}>
+        <div className="service-accordion-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "start" }}>
           
           {/* Accordion Left Side */}
           <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
@@ -121,7 +121,7 @@ export default function ServiceAccordion() {
           </div>
 
           {/* Image Right Side (Dynamic service image) */}
-          <div style={{ 
+          <div className="service-accordion-img" style={{ 
             position: "relative", 
             width: "100%", 
             height: "100%", 

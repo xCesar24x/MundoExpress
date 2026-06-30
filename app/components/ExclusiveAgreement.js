@@ -45,7 +45,7 @@ export default function ExclusiveAgreement() {
         `}</style>
 
         {/* Rotating border container */}
-        <div style={{
+        <div className="exclusive-card-wrapper" style={{
           position: "relative",
           borderRadius: "20px",
           padding: "4px",
@@ -75,7 +75,7 @@ export default function ExclusiveAgreement() {
           }} />
 
           {/* Card content */}
-          <div style={{
+          <div className="exclusive-card-inner" style={{
             position: "relative",
             zIndex: 2,
             background: "linear-gradient(160deg, #111111 0%, #0d0d0d 100%)",

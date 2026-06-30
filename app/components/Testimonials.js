@@ -87,7 +87,7 @@ export default function Testimonials() {
   }, [emblaApi]);
 
   return (
-    <section style={{ 
+    <section className="testimonials-section" style={{ 
       padding: "8rem 2rem", 
       background: "#0A0A0A", 
       color: "#FFFFFF",
