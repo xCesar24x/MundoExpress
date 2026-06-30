@@ -178,7 +178,7 @@ export default function StoreGrid() {
         <span style={{ color: "var(--primary)", border: "1px solid var(--primary)", padding: "0.5rem 2rem", borderRadius: "50px", textTransform: "uppercase", fontSize: "0.9rem", letterSpacing: "2px", fontWeight: 600 }}>
           Directorio
         </span>
-        <h2 style={{ fontSize: "clamp(2.5rem, 5vw, 3.5rem)", fontWeight: 900, textTransform: "uppercase", marginTop: "2rem", letterSpacing: "-1px" }}>
+        <h2 style={{ fontSize: "clamp(2.5rem, 5vw, 3.5rem)", fontWeight: 900, textTransform: "uppercase", marginTop: "2rem", letterSpacing: "-1px", color: "var(--primary)" }}>
           ¿DÓNDE COMPRAR?
         </h2>
         <p style={{ color: "var(--dark-gray)", fontSize: "1.1rem", marginTop: "1rem", marginBottom: "4rem", maxWidth: "600px", marginInline: "auto" }}>
