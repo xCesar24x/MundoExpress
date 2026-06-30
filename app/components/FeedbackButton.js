@@ -106,14 +106,28 @@ export default function FeedbackButton() {
     const newStatus = currentStatus === "Pendiente" ? "Atendido" : "Pendiente";
     try {
       await updateDoc(doc(db, "feedbacks", id), {
-        status: newStatus
+        status: newStatus,
+        resolvedAt: newStatus === "Atendido" ? serverTimestamp() : null
       });
     } catch (error) {
       console.error("Error updating status:", error);
     }
   };
 
-  const filteredTickets = tickets.filter(t => filterTipo === 'Todos' || t.tipo === filterTipo);
+  const filteredTickets = tickets.filter(t => {
+    // 1. Filtrar por tipo
+    if (filterTipo !== 'Todos' && t.tipo !== filterTipo) return false;
+
+    // 2. Ocultar si está Atendido y pasaron más de 10 minutos (600,000 ms)
+    if (t.status === "Atendido" && t.resolvedAt?.seconds) {
+      const resolvedTimeMs = t.resolvedAt.seconds * 1000;
+      if (Date.now() - resolvedTimeMs > 10 * 60 * 1000) {
+        return false;
+      }
+    }
+
+    return true;
+  });
 
   return (
     <>
