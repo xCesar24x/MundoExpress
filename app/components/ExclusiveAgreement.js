@@ -36,8 +36,8 @@ export default function ExclusiveAgreement() {
         {/* CSS keyframe for rotating golden light — injected via style tag */}
         <style>{`
           @keyframes rotate-gold {
-            0%   { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0%   { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
           }
           .gold-ring-outer {
             animation: rotate-gold 4s linear infinite;
@@ -53,12 +53,15 @@ export default function ExclusiveAgreement() {
           width: "fit-content",
           overflow: "hidden"
         }}>
-          {/* Rotating conic-gradient "light" ring */}
+          {/* Rotating conic-gradient "light" ring — oversized so corners always stay covered */}
           <div className="gold-ring-outer" style={{
             position: "absolute",
-            inset: "-2px",
-            borderRadius: "22px",
-            background: "conic-gradient(from 0deg, transparent 60%, #D4AF37 70%, #FFD700 75%, #FFF5A0 78%, #FFD700 82%, #D4AF37 87%, transparent 100%)",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%) rotate(0deg)",
+            width: "200%",
+            height: "200%",
+            background: "conic-gradient(from 0deg, transparent 60%, #B8860B 67%, #D4AF37 71%, #FFE57A 74%, #D4AF37 77%, #B8860B 82%, transparent 88%)",
             zIndex: 0
           }} />
 
