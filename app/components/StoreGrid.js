@@ -22,9 +22,13 @@ const usaStores = [
   { name: "Shop Premium Outlets", url: "https://shoppremiumoutlets.com", img: "/assets/Simon_Logo.png" },
   { name: "Joe's New Balance Outlet", url: "https://www.joesnewbalanceoutlet.com", img: "/assets/joes-outlet.png" },
   { name: "RockAuto", url: "https://www.rockauto.com", img: "/assets/rockauto.png" },
-  { name: "Carter's", url: "https://www.carters.com", img: "/assets/carters.png", style: { transform: "scale(1.35)" } }
+  { name: "Carter's", url: "https://www.carters.com", img: "/assets/carters.png", style: { transform: "scale(1.35)" } },
+  { name: "Fashion Nova", url: "https://www.fashionnova.com", img: "/assets/Fashion-Nova-Logo.png" },
+  { name: "Sears", url: "https://www.sears.com", img: "/assets/sears-logo.png" },
+  { name: "MAC Cosmetics", url: "https://www.maccosmetics.com", img: "/assets/mac-cosmetics-logo.png" },
+  { name: "New Balance", url: "https://www.newbalance.com", img: "/assets/new-balance-logo.png" },
+  { name: "The North Face", url: "https://www.thenorthface.com", img: "/assets/north-face-logo.png" }
 ];
-
 
 const chinaStores = [
   { name: "AliExpress", url: "https://www.aliexpress.com", img: "/assets/png-clipart-amazon-com-aliexpress-app-store-shopping-app-android-text-logo.png" },
@@ -72,41 +76,95 @@ const colombiaStores = [
   { name: "Cromantic", url: "https://www.cromantic.com", img: "/assets/cromantic.png" }
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.04,
-      delayChildren: 0.05
-    }
-  },
-  exit: {
-    opacity: 0,
-    transition: {
-      staggerChildren: 0.02,
-      staggerDirection: -1
-    }
-  }
-};
+// ─── Marquee helpers ──────────────────────────────────────────────────────────
 
-const itemVariants = {
-  hidden: { opacity: 0, scale: 0.4, y: 40, rotateX: -60 },
-  show: { 
-    opacity: 1, 
-    scale: 1, 
-    y: 0, 
-    rotateX: 0,
-    transition: { type: "spring", stiffness: 280, damping: 20 }
-  },
-  exit: { 
-    opacity: 0, 
-    scale: 0.8, 
-    y: -20, 
-    rotateX: 45,
-    transition: { duration: 0.2 }
-  }
-};
+function MarqueeTrack({ items, direction, speed }) {
+  const doubled = [...items, ...items];
+  const animFrom = direction === "left" ? "0%" : "-50%";
+  const animTo   = direction === "left" ? "-50%" : "0%";
+
+  return (
+    <div style={{ overflowX: "clip", overflowY: "visible", width: "100%", position: "relative", paddingTop: "8px", paddingBottom: "8px" }}>
+      {/* Left fade */}
+      <div style={{
+        position: "absolute", top: 0, left: 0, width: "80px", height: "100%",
+        background: "linear-gradient(to right, #ffffff, transparent)",
+        zIndex: 2, pointerEvents: "none"
+      }} />
+      {/* Right fade */}
+      <div style={{
+        position: "absolute", top: 0, right: 0, width: "80px", height: "100%",
+        background: "linear-gradient(to left, #ffffff, transparent)",
+        zIndex: 2, pointerEvents: "none"
+      }} />
+
+      <motion.div
+        style={{ display: "flex", gap: "1.5rem", width: "max-content" }}
+        animate={{ x: [animFrom, animTo] }}
+        transition={{ duration: speed, ease: "linear", repeat: Infinity }}
+      >
+        {doubled.map((store, i) => (
+          <a
+            key={`${store.name}-${i}`}
+            href={store.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={store.name}
+            style={{
+              border: "1px solid rgba(68, 68, 68, 0.08)",
+              borderRadius: "16px",
+              padding: "1.2rem 1.8rem",
+              background: "#FFFFFF",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: "200px",
+              height: "110px",
+              flexShrink: 0,
+              overflow: "hidden",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+              transition: "box-shadow 0.2s, border-color 0.2s, transform 0.2s",
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.1)";
+              e.currentTarget.style.borderColor = "var(--primary)";
+              e.currentTarget.style.transform = "translateY(-4px) scale(1.04)";
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.04)";
+              e.currentTarget.style.borderColor = "rgba(68, 68, 68, 0.08)";
+              e.currentTarget.style.transform = "translateY(0) scale(1)";
+            }}
+          >
+            <img
+              src={store.img}
+              alt={store.name}
+              style={{ width: "100%", height: "100%", objectFit: "contain", ...(store.style || {}) }}
+            />
+          </a>
+        ))}
+      </motion.div>
+    </div>
+  );
+}
+
+function MarqueeRows({ stores }) {
+  const third = Math.ceil(stores.length / 3);
+  const row1 = stores.slice(0, third);
+  const row2 = stores.slice(third, third * 2);
+  const row3 = stores.slice(third * 2);
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", overflow: "hidden" }}>
+      <MarqueeTrack items={row1} direction="left"  speed={33} />
+      <MarqueeTrack items={row2} direction="right" speed={38} />
+      <MarqueeTrack items={row3} direction="left"  speed={35} />
+    </div>
+  );
+}
+
+// ─── Main component ───────────────────────────────────────────────────────────
 
 export default function StoreGrid() {
   const [activeTab, setActiveTab] = useState('usa');
@@ -115,7 +173,8 @@ export default function StoreGrid() {
   return (
     <section style={{ padding: "8rem 2rem", background: "#FFFFFF", color: "var(--bg-dark)", textAlign: "center", position: "relative", overflow: "hidden" }}>
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
-        {/* Title Block */}
+
+        {/* Title */}
         <span style={{ color: "var(--primary)", border: "1px solid var(--primary)", padding: "0.5rem 2rem", borderRadius: "50px", textTransform: "uppercase", fontSize: "0.9rem", letterSpacing: "2px", fontWeight: 600 }}>
           Directorio
         </span>
@@ -126,12 +185,12 @@ export default function StoreGrid() {
           Explore las principales tiendas recomendadas en Estados Unidos, China y Colombia para realizar sus compras de forma segura.
         </p>
 
-        {/* Dynamic Segmented Switcher */}
-        <div style={{ 
-          display: "grid", 
+        {/* Country Switcher */}
+        <div style={{
+          display: "grid",
           gridTemplateColumns: "repeat(3, 1fr)",
-          padding: "6px", 
-          background: "rgba(68, 68, 68, 0.05)", 
+          padding: "6px",
+          background: "rgba(68, 68, 68, 0.05)",
           borderRadius: "16px",
           border: "1px solid rgba(68, 68, 68, 0.08)",
           position: "relative",
@@ -140,19 +199,19 @@ export default function StoreGrid() {
           maxWidth: "620px",
           marginInline: "auto"
         }}>
-          {/* Animated Sliding Pill */}
-          <motion.div 
+          {/* Sliding pill */}
+          <motion.div
             style={{
               position: "absolute",
               top: "6px",
               left: activeTab === 'usa' ? "6px" : activeTab === 'china' ? "calc(33.33% + 2px)" : "calc(66.66% - 2px)",
               width: "calc(33.33% - 4px)",
               height: "calc(100% - 12px)",
-              background: activeTab === 'usa' 
-                ? "linear-gradient(135deg, #002868 0%, #bf0a30 100%)" // USA: Exact Blue & Red
+              background: activeTab === 'usa'
+                ? "linear-gradient(135deg, #002868 0%, #bf0a30 100%)"
                 : activeTab === 'china'
-                ? "linear-gradient(135deg, #de2910 0%, #de2910 75%, #ffde00 100%)" // China: Mostly Red with Yellow end
-                : "linear-gradient(135deg, #fcd116 0%, #003893 50%, #ce1126 100%)", // Colombia: Exact Yellow, Blue, Red
+                ? "linear-gradient(135deg, #de2910 0%, #de2910 75%, #ffde00 100%)"
+                : "linear-gradient(135deg, #fcd116 0%, #003893 50%, #ce1126 100%)",
               borderRadius: "12px",
               boxShadow: activeTab === 'usa'
                 ? "0 4px 12px rgba(0, 40, 104, 0.3)"
@@ -166,14 +225,13 @@ export default function StoreGrid() {
           />
 
           {[
-            { id: 'usa', code: 'US', name: 'Estados Unidos', flag: '/assets/flag-usa.avif' },
-            { id: 'china', code: 'CN', name: 'China', flag: '/assets/flag-china.avif' },
-            { id: 'colombia', code: 'CO', name: 'Colombia', flag: '/assets/flag-colombia.jpg' }
+            { id: 'usa',      name: 'Estados Unidos', flag: '/assets/flag-usa.avif' },
+            { id: 'china',    name: 'China',          flag: '/assets/flag-china.avif' },
+            { id: 'colombia', name: 'Colombia',       flag: '/assets/flag-colombia.jpg' }
           ].map((tab) => {
             const on = activeTab === tab.id;
-
             return (
-              <button 
+              <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 style={{
@@ -194,30 +252,14 @@ export default function StoreGrid() {
                   transition: "color 0.2s ease"
                 }}
               >
-                <div
-                  style={{
-                    width: "28px",
-                    height: "18px",
-                    borderRadius: "4px",
-                    overflow: "hidden",
-                    border: on ? "1px solid rgba(255,255,255,0.8)" : "1px solid rgba(68, 68, 68, 0.15)",
-                    transition: "transform 0.2s, border-color 0.18s",
-                    transform: on ? "scale(1.1)" : "scale(1)",
-                    boxShadow: "0 1px 3px rgba(0,0,0,0.15)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center"
-                  }}
-                >
-                  <img 
-                    src={tab.flag} 
-                    alt={tab.name} 
-                    style={{ 
-                      width: "100%", 
-                      height: "100%", 
-                      objectFit: "cover" 
-                    }} 
-                  />
+                <div style={{
+                  width: "28px", height: "18px", borderRadius: "4px", overflow: "hidden",
+                  border: on ? "1px solid rgba(255,255,255,0.8)" : "1px solid rgba(68,68,68,0.15)",
+                  transition: "transform 0.2s, border-color 0.18s",
+                  transform: on ? "scale(1.1)" : "scale(1)",
+                  boxShadow: "0 1px 3px rgba(0,0,0,0.15)"
+                }}>
+                  <img src={tab.flag} alt={tab.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                 </div>
                 <span>{tab.name}</span>
               </button>
@@ -225,64 +267,19 @@ export default function StoreGrid() {
           })}
         </div>
 
-        {/* Directory Grid of Logos */}
+        {/* Three-Row Infinite Marquee */}
         <AnimatePresence mode="wait">
-          <motion.div 
+          <motion.div
             key={activeTab}
-            variants={containerVariants}
-            initial="hidden"
-            animate="show"
-            exit="exit"
-            style={{ 
-              display: "grid", 
-              gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", 
-              gap: "1.5rem",
-              justifyContent: "center",
-              perspective: "1000px"
-            }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4 }}
           >
-            {currentStores.map((store) => (
-              <motion.a 
-                key={store.name}
-                variants={itemVariants}
-                href={store.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ 
-                  y: -5,
-                  scale: 1.05,
-                  boxShadow: "0 12px 24px rgba(0,0,0,0.06)", 
-                  borderColor: "var(--primary)" 
-                }}
-                style={{
-                  border: "1px solid rgba(68, 68, 68, 0.08)",
-                  borderRadius: "16px",
-                  padding: "1.5rem",
-                  background: "#FFFFFF",
-                  cursor: "pointer",
-                  transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  aspectRatio: "1.6 / 1",
-                  overflow: "hidden"
-                }}
-                title={store.name}
-              >
-                <img 
-                  src={store.img} 
-                  alt={store.name} 
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "contain",
-                    ...store.style
-                  }}
-                />
-              </motion.a>
-            ))}
+            <MarqueeRows stores={currentStores} />
           </motion.div>
         </AnimatePresence>
+
       </div>
     </section>
   );
