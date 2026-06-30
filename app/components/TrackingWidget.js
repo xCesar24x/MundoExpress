@@ -220,7 +220,7 @@ export default function TrackingWidget() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <h3 style={{ fontSize: "1.5rem", marginBottom: "0.5rem", fontWeight: 800 }}>CALCULA TU ENVÍO</h3>
             <p style={{ marginBottom: "1.5rem", fontSize: "0.9rem", opacity: 0.9, lineHeight: "1.5" }}>
-              Calcula el costo aproximado de traer tu paquete a Costa Rica. (Tarifa todo incluido de ₡6,480 x kilo).
+              Calcula el costo aproximado de traer tu paquete a Costa Rica.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginTop: "1.5rem" }}>
               <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
