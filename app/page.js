@@ -4,6 +4,7 @@ import Hero from './components/Hero';
 import HowItWorks from './components/HowItWorks';
 import ServiceAccordion from './components/ServiceAccordion';
 import StoreGrid from './components/StoreGrid';
+import ExclusiveAgreement from './components/ExclusiveAgreement';
 import Testimonials from './components/Testimonials';
 import Stats from './components/Stats';
 import FAQ from './components/FAQ';
@@ -19,6 +20,7 @@ export default function Home() {
         <HowItWorks />
         <ServiceAccordion />
         <LogoTicker />
+        <ExclusiveAgreement />
         <StoreGrid />
         <Testimonials />
         <Stats />
