@@ -50,7 +50,8 @@ export default function ExclusiveAgreement() {
           borderRadius: "20px",
           padding: "2px",
           background: "transparent",
-          width: "fit-content"
+          width: "fit-content",
+          overflow: "hidden"
         }}>
           {/* Rotating conic-gradient "light" ring */}
           <div className="gold-ring-outer" style={{
