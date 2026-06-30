@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChatTeardropText, LockKey, SignOut, CheckCircle, Clock } from '@phosphor-icons/react';
 import { collection, addDoc, serverTimestamp, query, orderBy, onSnapshot, doc, updateDoc } from "firebase/firestore";
-import { db } from "../../../lib/firebase";
+import { db } from "../../lib/firebase";
 
 export default function FeedbackButton() {
   const [isOpen, setIsOpen] = useState(false);
