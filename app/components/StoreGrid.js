@@ -169,6 +169,32 @@ function MarqueeRows({ stores }) {
 
 export default function StoreGrid() {
   const [activeTab, setActiveTab] = useState('usa');
+  const [direction, setDirection] = useState(1);
+
+  const tabIndices = { usa: 0, china: 1, colombia: 2 };
+  
+  const handleTabChange = (newTab) => {
+    const currentIndex = tabIndices[activeTab];
+    const newIndex = tabIndices[newTab];
+    setDirection(newIndex > currentIndex ? 1 : -1);
+    setActiveTab(newTab);
+  };
+
+  const variants = {
+    enter: (dir) => ({
+      x: dir > 0 ? 80 : -80,
+      opacity: 0
+    }),
+    center: {
+      x: 0,
+      opacity: 1
+    },
+    exit: (dir) => ({
+      x: dir > 0 ? -80 : 80,
+      opacity: 0
+    })
+  };
+
   const currentStores = activeTab === 'usa' ? usaStores : activeTab === 'china' ? chinaStores : colombiaStores;
 
   return (
@@ -247,7 +273,7 @@ export default function StoreGrid() {
               <button
                 key={tab.id}
                 className="storegrid-tab-btn"
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => handleTabChange(tab.id)}
                 style={{
                   padding: "0.8rem 0",
                   width: "100%",
@@ -282,13 +308,16 @@ export default function StoreGrid() {
         </div>
 
         {/* Three-Row Infinite Marquee */}
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="popLayout" custom={direction}>
           <motion.div
             key={activeTab}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.45, ease: "easeInOut" }}
+            style={{ width: "100%" }}
           >
             <MarqueeRows stores={currentStores} />
           </motion.div>
