@@ -2,24 +2,41 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import { auth, db } from '../../../lib/firebase';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { 
-  mockClientProfile, 
-  miamiAddress, 
-  mockPackages, 
-  mockUnknownPackages, 
-  mockInvoices 
-} from '../../../lib/mockPortalData';
+  doc, 
+  getDoc, 
+  updateDoc, 
+  collection, 
+  onSnapshot, 
+  addDoc, 
+  deleteDoc,
+  setDoc
+} from 'firebase/firestore';
 
 export default function PortalDashboard() {
   const router = useRouter();
+  const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("tablero");
   const [addrTab, setAddrTab] = useState("usa");
   const [copiedField, setCopiedField] = useState("");
-  const [profile, setProfile] = useState(mockClientProfile);
+  
+  // Real database states
+  const [profile, setProfile] = useState({
+    name: "",
+    lastName: "",
+    email: "",
+    idCard: "",
+    phone: "",
+    exactAddress: "",
+    lockerId: ""
+  });
   const [searchQuery, setSearchQuery] = useState("");
-  const [packages, setPackages] = useState(mockPackages);
-  const [unknownPackages, setUnknownPackages] = useState(mockUnknownPackages);
-  const [invoices, setInvoices] = useState(mockInvoices);
+  const [packages, setPackages] = useState([]);
+  const [unknownPackages, setUnknownPackages] = useState([]);
+  const [invoices, setInvoices] = useState([]);
   
   // Claim Package Modal State
   const [isClaimModalOpen, setIsClaimModalOpen] = useState(false);
@@ -32,25 +49,99 @@ export default function PortalDashboard() {
   const [editLastName, setEditLastName] = useState("");
   const [editPhone, setEditPhone] = useState("");
   const [editAddress, setEditAddress] = useState("");
-  const [editPassword, setEditPassword] = useState("");
   const [saveSuccess, setSaveSuccess] = useState(false);
 
   useEffect(() => {
-    // Populate form fields with current profile
-    setEditName(profile.name);
-    setEditLastName(profile.lastName);
-    setEditPhone(profile.phone);
-    setEditAddress(profile.address);
-  }, [profile]);
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        localStorage.removeItem("userLoggedIn");
+        router.push("/portal/login");
+        return;
+      }
+      
+      setCurrentUser(user);
+      
+      // 1. Fetch user profile document
+      const userDocRef = doc(db, "users", user.uid);
+      const userDocSnap = await getDoc(userDocRef);
+      
+      if (userDocSnap.exists()) {
+        const data = userDocSnap.data();
+        setProfile(data);
+        setEditName(data.name || "");
+        setEditLastName(data.lastName || "");
+        setEditPhone(data.phone || "");
+        setEditAddress(data.exactAddress || data.address || "");
+      } else {
+        // Fallback profile if user was created without doc
+        const fallbackProfile = {
+          name: "Cliente",
+          lastName: "Nuevo",
+          email: user.email || "",
+          idCard: "100000000",
+          phone: "80000000",
+          exactAddress: "Heredia Centro",
+          lockerId: "ME" + String(Math.floor(100000 + Math.random() * 900000))
+        };
+        await setDoc(userDocRef, fallbackProfile);
+        setProfile(fallbackProfile);
+        setEditName(fallbackProfile.name);
+        setEditLastName(fallbackProfile.lastName);
+        setEditPhone(fallbackProfile.phone);
+        setEditAddress(fallbackProfile.exactAddress);
+      }
+
+      // 2. Real-time packages snapshot
+      const pkgsUnsubscribe = onSnapshot(collection(db, `users/${user.uid}/packages`), (snapshot) => {
+        const pkgsList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setPackages(pkgsList);
+      });
+
+      // 3. Real-time invoices snapshot
+      const invsUnsubscribe = onSnapshot(collection(db, `users/${user.uid}/invoices`), (snapshot) => {
+        const invsList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setInvoices(invsList);
+      });
+
+      // 4. Real-time unknown packages snapshot
+      const unknownPkgsUnsubscribe = onSnapshot(collection(db, "unknown_packages"), async (snapshot) => {
+        const unknownList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        
+        // Seed if empty
+        if (unknownList.length === 0) {
+          const defaultUnknowns = [
+            { trackingNumber: "TRK88273619P", weight: "1.5 lbs", date: new Date().toLocaleDateString('es-CR') },
+            { trackingNumber: "TRK66251829D", weight: "4.2 lbs", date: new Date().toLocaleDateString('es-CR') },
+            { trackingNumber: "TRK11029388Q", weight: "0.5 lbs", date: new Date().toLocaleDateString('es-CR') }
+          ];
+          for (const item of defaultUnknowns) {
+            await addDoc(collection(db, "unknown_packages"), item);
+          }
+        } else {
+          setUnknownPackages(unknownList);
+        }
+      });
+
+      setLoading(false);
+
+      return () => {
+        pkgsUnsubscribe();
+        invsUnsubscribe();
+        unknownPkgsUnsubscribe();
+      };
+    });
+
+    return () => unsubscribe();
+  }, [router]);
 
   const getAddresses = () => {
-    const fullName = `${profile.name} ${profile.lastName}`;
+    const fullName = `${profile.name || ""} ${profile.lastName || ""}`;
     return {
       usa: [
         { label: "Nombre / Consignatario", value: `Mundo Express / ${fullName}`, id: "usa_name" },
         { label: "Dirección / Address Line 1", value: "11350 NW 25th St", id: "usa_addr" },
         { label: "Dirección 2 / Address Line 2 (Suite - Apartment)", value: "Ste 100", id: "usa_suite" },
-        { label: "Casillero / Referencia", value: profile.lockerId, id: "usa_ref" },
+        { label: "Casillero / Referencia", value: profile.lockerId || "", id: "usa_ref" },
         { label: "Ciudad / City", value: "Doral", id: "usa_city" },
         { label: "Estado / State", value: "Florida", id: "usa_state" },
         { label: "Código Postal / Zip Code", value: "33172", id: "usa_zip" },
@@ -61,7 +152,7 @@ export default function PortalDashboard() {
         { label: "Nombre / Consignatario", value: `Mundo Express / ${fullName}`, id: "c_name" },
         { label: "Dirección (Chino)", value: "广东省佛山市南海区横二路6号 聚润创意园", id: "c_addr_cn" },
         { label: "Dirección (Inglés)", value: "No.6, Heng Er Road, Nanhai District, Foshan City, Guangdong Province", id: "c_addr_en" },
-        { label: "Casillero / Referencia", value: profile.lockerId, id: "c_ref" },
+        { label: "Casillero / Referencia", value: profile.lockerId || "", id: "c_ref" },
         { label: "Ciudad", value: "Foshan", id: "c_city" },
         { label: "Provincia", value: "Guangdong", id: "c_prov" },
         { label: "Código Postal", value: "528244", id: "c_zip" },
@@ -72,7 +163,7 @@ export default function PortalDashboard() {
         { label: "Nombre / Name", value: "Mundo", id: "co_name" },
         { label: "Apellido / Last Name", value: `Express / ${fullName}`, id: "co_lastname" },
         { label: "Dirección / Address Line 1", value: "CRA 46D #75 sur - 47, Aguas Claras 2 apto 214", id: "co_addr" },
-        { label: "Dirección 2 / Suite / Lock Number", value: profile.lockerId, id: "co_suite" },
+        { label: "Dirección 2 / Suite / Lock Number", value: profile.lockerId || "", id: "co_suite" },
         { label: "Estado / Departamento", value: "Antioquia", id: "co_state" },
         { label: "Ciudad / City", value: "Sabaneta", id: "co_city" },
         { label: "Código Postal / Zip Code", value: "055450", id: "co_zip" },
@@ -82,7 +173,8 @@ export default function PortalDashboard() {
     };
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await signOut(auth);
     localStorage.removeItem("userLoggedIn");
     router.push("/portal/login");
   };
@@ -93,50 +185,70 @@ export default function PortalDashboard() {
     setTimeout(() => setCopiedField(""), 2000);
   };
 
-  const handleSaveProfile = (e) => {
+  const handleSaveProfile = async (e) => {
     e.preventDefault();
-    setProfile(prev => ({
-      ...prev,
-      name: editName,
-      lastName: editLastName,
-      phone: editPhone,
-      address: editAddress
-    }));
-    setSaveSuccess(true);
-    setTimeout(() => setSaveSuccess(false), 3000);
+    if (!currentUser) return;
+    
+    try {
+      const userDocRef = doc(db, "users", currentUser.uid);
+      await updateDoc(userDocRef, {
+        name: editName,
+        lastName: editLastName,
+        phone: editPhone,
+        exactAddress: editAddress
+      });
+      setProfile(prev => ({
+        ...prev,
+        name: editName,
+        lastName: editLastName,
+        phone: editPhone,
+        exactAddress: editAddress
+      }));
+      setSaveSuccess(true);
+      setTimeout(() => setSaveSuccess(false), 3000);
+    } catch (err) {
+      console.error(err);
+      alert("Error al guardar perfil.");
+    }
   };
 
-  const handleClaimSubmit = (e) => {
+  const handleClaimSubmit = async (e) => {
     e.preventDefault();
-    if (!selectedClaimPackage) return;
+    if (!selectedClaimPackage || !currentUser) return;
     
-    // Add to active packages list in current UI session
-    const newPackage = {
-      id: `TRK-${Math.floor(100000000 + Math.random() * 900000000)}`,
-      trackingNumber: selectedClaimPackage.trackingNumber,
-      store: claimDescription || "Tienda Desconocida",
-      content: "Paquete Reclamado (En Proceso)",
-      weight: selectedClaimPackage.weight,
-      status: "En Aduanas",
-      date: new Date().toLocaleDateString('es-CR'),
-      price: 0
-    };
-    
-    setPackages([newPackage, ...packages]);
-    setUnknownPackages(unknownPackages.filter(p => p.id !== selectedClaimPackage.id));
-    setIsClaimModalOpen(false);
-    setSelectedClaimPackage(null);
-    setClaimDescription("");
-    setClaimInvoiceFile(null);
-    
-    alert("¡Paquete reclamado con éxito! Se ha añadido a tu lista de trackings y nuestro equipo de aduanas lo está procesando.");
+    try {
+      const newPackage = {
+        trackingNumber: selectedClaimPackage.trackingNumber,
+        store: claimDescription || "Tienda Desconocida",
+        content: "Paquete Reclamado (En Proceso)",
+        weight: selectedClaimPackage.weight,
+        status: "En Aduanas",
+        date: new Date().toLocaleDateString('es-CR'),
+        price: 0
+      };
+      // Add package to users list in Firestore
+      await addDoc(collection(db, `users/${currentUser.uid}/packages`), newPackage);
+      
+      // Delete package from global unknown_packages list in Firestore
+      await deleteDoc(doc(db, "unknown_packages", selectedClaimPackage.id));
+      
+      setIsClaimModalOpen(false);
+      setSelectedClaimPackage(null);
+      setClaimDescription("");
+      setClaimInvoiceFile(null);
+      
+      alert("¡Paquete reclamado con éxito! Se ha añadido a tu lista de trackings y nuestro equipo de aduanas lo está procesando.");
+    } catch (err) {
+      console.error(err);
+      alert("Error al reclamar paquete.");
+    }
   };
 
   // Filter packages based on search query
   const filteredPackages = packages.filter(p => 
-    p.trackingNumber.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    p.store.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    p.content.toLowerCase().includes(searchQuery.toLowerCase())
+    (p.trackingNumber || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (p.store || "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (p.content || "").toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   // Get active packets count
@@ -150,6 +262,40 @@ export default function PortalDashboard() {
       case "Entregado": return "#6b7280"; // Gray
       default: return "var(--primary)";
     }
+  };
+
+  if (loading) {
+    return (
+      <div style={{
+        minHeight: "100vh",
+        background: "#080808",
+        color: "white",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        fontFamily: "var(--font-sans, system-ui, sans-serif)"
+      }}>
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+          style={{
+            width: "40px",
+            height: "40px",
+            borderRadius: "50%",
+            border: "4px solid rgba(20, 177, 189, 0.1)",
+            borderTopColor: "var(--primary)"
+          }}
+        />
+        <p style={{ marginTop: "1rem", color: "var(--text-light)", fontSize: "0.9rem" }}>Cargando panel de casillero...</p>
+      </div>
+    );
+  }
+
+  const getInitials = () => {
+    const f = profile.name ? profile.name.charAt(0).toUpperCase() : "";
+    const l = profile.lastName ? profile.lastName.charAt(0).toUpperCase() : "";
+    return `${f}${l}` || "U";
   };
 
   return (
@@ -208,7 +354,7 @@ export default function PortalDashboard() {
             fontSize: "1rem",
             boxShadow: "0 0 12px rgba(20, 177, 189, 0.3)"
           }}>
-            {profile.name.charAt(0)}{profile.lastName.charAt(0)}
+            {getInitials()}
           </div>
         </div>
       </header>
@@ -236,7 +382,7 @@ export default function PortalDashboard() {
             {[
               { id: "tablero", label: "🏠 Tablero" },
               { id: "paquetes", label: "📦 Mis Paquetes" },
-              { id: "direccion", label: "📍 Dirección de Envío" },
+              { id: "direccion", label: "📍 Direcciones de Envío" },
               { id: "desconocidos", label: "❓ Reclamar Paquetes" },
               { id: "facturas", label: "💵 Mis Facturas" },
               { id: "cuenta", label: "👤 Mi Cuenta" }
@@ -394,7 +540,7 @@ export default function PortalDashboard() {
                     </div>
                     <div>
                       <span style={{ fontSize: "0.8rem", color: "var(--text-light)" }}>DIRECCIÓN DE ENTREGA (MIAMI)</span>
-                      <div style={{ fontSize: "1rem", fontWeight: "700", marginTop: "0.25rem" }}>11350 NW 25th ST, Suite 100, ME000776</div>
+                      <div style={{ fontSize: "1rem", fontWeight: "700", marginTop: "0.25rem" }}>11350 NW 25th ST, Suite 100, {profile.lockerId}</div>
                     </div>
                   </div>
 
@@ -415,7 +561,7 @@ export default function PortalDashboard() {
                     onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"}
                     onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.05)"}
                   >
-                    Ver Dirección Completa →
+                    Ver Direcciones de Envío →
                   </button>
                 </div>
               </motion.div>
@@ -640,8 +786,8 @@ export default function PortalDashboard() {
                     }}>
                       <h4 style={{ fontWeight: "700", fontSize: "1rem" }}>📦 ¿Cómo funciona?</h4>
                       <ol style={{ fontSize: "0.85rem", lineHeight: "1.6", color: "var(--text-light)", paddingLeft: "1.2rem", marginTop: "0.5rem" }}>
-                        <li style={{ marginBottom: "0.5rem" }}>Compras en tu tienda favorita y pones nuestra dirección de Miami.</li>
-                        <li style={{ marginBottom: "0.5rem" }}>El paquete llega a nuestra bodega y lo identificamos.</li>
+                        <li style={{ marginBottom: "0.5rem" }}>Compras en tu tienda favorita y pones nuestra dirección de Miami, China o Colombia.</li>
+                        <li style={{ marginBottom: "0.5rem" }}>El paquete llega a nuestra bodega y lo identificamos con tu casillero.</li>
                         <li style={{ marginBottom: "0.5rem" }}>Viaja a Costa Rica y te notificamos cuando pase aduanas y esté listo.</li>
                       </ol>
                     </div>
@@ -825,7 +971,7 @@ export default function PortalDashboard() {
                       margin: "0 auto 1.5rem auto",
                       boxShadow: "0 0 20px rgba(20, 177, 189, 0.3)"
                     }}>
-                      {profile.name.charAt(0)}{profile.lastName.charAt(0)}
+                      {getInitials()}
                     </div>
 
                     <h3 style={{ fontSize: "1.25rem", fontWeight: "800" }}>{profile.name} {profile.lastName}</h3>
@@ -847,7 +993,7 @@ export default function PortalDashboard() {
 
                     <div style={{ borderTop: "1px solid rgba(255,255,255,0.05)", marginTop: "2rem", paddingTop: "1.5rem", textAlign: "left", fontSize: "0.85rem", color: "var(--text-light)" }}>
                       <div style={{ marginBottom: "0.5rem" }}>📱 WhatsApp: <strong>{profile.phone}</strong></div>
-                      <div>📅 Registrado: <strong>25 Jun 2026</strong></div>
+                      <div>📅 Cédula: <strong>{profile.idCard}</strong></div>
                     </div>
                   </div>
 
@@ -1016,7 +1162,7 @@ export default function PortalDashboard() {
                     onChange={(e) => setClaimDescription(e.target.value)}
                     style={{
                       width: "100%", padding: "0.8rem 1rem", borderRadius: "10px", background: "rgba(0,0,0,0.3)",
-                      border: "1px solid rgba(255,255,255,0.08)", color: "white", outline: "none"
+                      border: "1px solid rgba(255, 255, 255, 0.08)", color: "white", outline: "none"
                     }}
                   />
                 </div>
@@ -1030,7 +1176,7 @@ export default function PortalDashboard() {
                     onChange={(e) => setClaimInvoiceFile(e.target.files[0])}
                     style={{
                       width: "100%", padding: "0.8rem 1rem", borderRadius: "10px", background: "rgba(0,0,0,0.3)",
-                      border: "1px solid rgba(255,255,255,0.08)", color: "var(--text-light)", outline: "none"
+                      border: "1px solid rgba(255, 255, 255, 0.08)", color: "var(--text-light)", outline: "none"
                     }}
                   />
                 </div>

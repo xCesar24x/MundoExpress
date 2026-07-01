@@ -2,6 +2,9 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import { auth, db } from '../../../lib/firebase';
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc, collection, addDoc } from 'firebase/firestore';
 
 const locationData = {
   "San José": {
@@ -61,6 +64,7 @@ export default function PortalLogin() {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   
   // Registration States
   const [name, setName] = useState("");
@@ -77,42 +81,119 @@ export default function PortalLogin() {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError("");
     
-    if (isLogin) {
-      if (!email || !password) {
-        setError("Por favor completa todos los campos requeridos.");
-        setTimeout(() => setError(""), 3000);
-        return;
+    try {
+      if (isLogin) {
+        if (!email || !password) {
+          throw new Error("Por favor completa todos los campos requeridos.");
+        }
+        // Sign in with Firebase Auth
+        await signInWithEmailAndPassword(auth, email, password);
+        localStorage.setItem("userLoggedIn", "true");
+        router.push("/portal/dashboard");
+      } else {
+        if (!name || !lastName || !idCard || !password || !email || !phone || !provincia || !canton || !distrito || !deliveryZone || !deliveryType || !exactAddress) {
+          throw new Error("Por favor completa todos los campos requeridos (*).");
+        }
+        
+        // Create user with Firebase Auth
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Generate dynamic Locker ID
+        const lockerId = "ME" + String(Math.floor(100000 + Math.random() * 900000));
+
+        // Save profile structure in Firestore
+        const userDoc = {
+          uid: user.uid,
+          name,
+          lastName,
+          idCard,
+          email,
+          phone,
+          provincia,
+          canton,
+          distrito,
+          deliveryZone,
+          deliveryType,
+          exactAddress,
+          lockerId,
+          createdAt: new Date().toISOString()
+        };
+        await setDoc(doc(db, "users", user.uid), userDoc);
+
+        // Seed initial mock packages in Firestore
+        const initialPackages = [
+          {
+            trackingNumber: "TRK" + String(Math.floor(100000000 + Math.random() * 900000000)),
+            store: "Amazon",
+            content: "Audífonos Inalámbricos Pro",
+            weight: "0.8 lbs",
+            status: "En Tránsito a CR",
+            date: new Date().toLocaleDateString('es-CR'),
+            price: 15.5
+          },
+          {
+            trackingNumber: "TRK" + String(Math.floor(100000000 + Math.random() * 900000000)),
+            store: "eBay",
+            content: "Zapatos Deportivos",
+            weight: "2.3 lbs",
+            status: "Listo para Entrega",
+            date: new Date().toLocaleDateString('es-CR'),
+            price: 25.0
+          }
+        ];
+
+        for (const pkg of initialPackages) {
+          await addDoc(collection(db, `users/${user.uid}/packages`), pkg);
+        }
+
+        // Seed initial mock invoices in Firestore
+        const initialInvoices = [
+          {
+            id: "FAC-" + String(Math.floor(10000 + Math.random() * 90000)),
+            concept: "Servicio Flete Courier USA-CR",
+            price: 15.5,
+            status: "Pendiente",
+            date: new Date().toLocaleDateString('es-CR')
+          },
+          {
+            id: "FAC-" + String(Math.floor(10000 + Math.random() * 90000)),
+            concept: "Servicio Flete Courier USA-CR",
+            price: 25.0,
+            status: "Pagado",
+            date: new Date().toLocaleDateString('es-CR')
+          }
+        ];
+
+        for (const inv of initialInvoices) {
+          await addDoc(collection(db, `users/${user.uid}/invoices`), inv);
+        }
+
+        localStorage.setItem("userLoggedIn", "true");
+        router.push("/portal/dashboard");
       }
-    } else {
-      if (!name || !lastName || !idCard || !password || !email || !phone || !provincia || !canton || !distrito || !deliveryZone || !deliveryType || !exactAddress) {
-        setError("Por favor completa todos los campos requeridos (*).");
-        setTimeout(() => setError(""), 3000);
-        return;
+    } catch (err) {
+      console.error(err);
+      let errMsg = "Ocurrió un error. Por favor intenta de nuevo.";
+      if (err.code === "auth/email-already-in-use") {
+        errMsg = "El correo electrónico ya está registrado.";
+      } else if (err.code === "auth/weak-password") {
+        errMsg = "La contraseña debe tener al menos 6 caracteres.";
+      } else if (err.code === "auth/invalid-credential" || err.code === "auth/user-not-found" || err.code === "auth/wrong-password") {
+        errMsg = "Credenciales incorrectas. Verifica tu correo y contraseña.";
+      } else if (err.message) {
+        errMsg = err.message;
       }
+      setError(errMsg);
+      setTimeout(() => setError(""), 5000);
+    } finally {
+      setIsLoading(false);
     }
-    
-    // Save login status and registration fields locally for the session
-    localStorage.setItem("userLoggedIn", "true");
-    localStorage.setItem("userEmail", email);
-    
-    if (!isLogin) {
-      localStorage.setItem("userName", name);
-      localStorage.setItem("userLastName", lastName);
-      localStorage.setItem("userIdCard", idCard);
-      localStorage.setItem("userPhone", phone);
-      localStorage.setItem("userAddress", `${exactAddress}, ${distrito}, ${canton}, ${provincia}`);
-    } else {
-      // Set defaults for login demo
-      localStorage.setItem("userName", "Cesar");
-      localStorage.setItem("userLastName", "Madrigal Rodriguez");
-      localStorage.setItem("userIdCard", "116680724");
-      localStorage.setItem("userPhone", "84349442");
-    }
-    
-    router.push("/portal/dashboard");
   };
 
   const inputStyle = {
@@ -494,6 +575,7 @@ export default function PortalLogin() {
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.99 }}
             type="submit"
+            disabled={isLoading}
             style={{
               width: "100%",
               padding: "1rem",
@@ -505,12 +587,13 @@ export default function PortalLogin() {
               fontWeight: "800",
               textTransform: "uppercase",
               letterSpacing: "0.5px",
-              cursor: "pointer",
+              cursor: isLoading ? "not-allowed" : "pointer",
               marginTop: "0.8rem",
-              boxShadow: "0 4px 15px rgba(20, 177, 189, 0.3)"
+              boxShadow: "0 4px 15px rgba(20, 177, 189, 0.3)",
+              opacity: isLoading ? 0.7 : 1
             }}
           >
-            {isLogin ? "Ingresar →" : "CREAR MI CASILLERO"}
+            {isLoading ? "PROCESANDO..." : isLogin ? "Ingresar →" : "CREAR MI CASILLERO"}
           </motion.button>
         </form>
 
