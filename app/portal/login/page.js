@@ -3,6 +3,60 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const locationData = {
+  "San José": {
+    cantones: {
+      "Central": ["El Carmen", "Merced", "Hospital", "Catedral", "Zapote", "San Francisco de Dos Ríos", "Uruca"],
+      "Escazú": ["Escazú Centro", "San Antonio", "San Rafael"],
+      "Desamparados": ["Desamparados Centro", "San Miguel", "San Juan de Dios", "Patarrá"],
+      "Pérez Zeledón": ["San Isidro de El General", "El General", "Daniel Flores", "Rivas"]
+    }
+  },
+  "Alajuela": {
+    cantones: {
+      "Central": ["Alajuela Centro", "San José", "Carrizal", "San Antonio", "Guácima"],
+      "San Ramón": ["San Ramón Centro", "Santiago", "San Juan", "Piedades Norte"],
+      "San Carlos": ["Quesada", "Florencia", "Buenavista", "La Fortuna", "Venado"]
+    }
+  },
+  "Cartago": {
+    cantones: {
+      "Central": ["Oriental", "Occidental", "Carmen", "San Nicolás", "Aguacaliente"],
+      "Paraíso": ["Paraíso Centro", "Santiago", "Orosi", "Cachí"],
+      "La Unión": ["Tres Ríos", "San Diego", "San Juan", "San Rafael"]
+    }
+  },
+  "Heredia": {
+    cantones: {
+      "Central": ["Heredia Centro", "Mercedes", "San Francisco", "Ulloa"],
+      "San Pablo": ["San Pablo Centro", "Rincón de Sabanilla"],
+      "Santo Domingo": ["Santo Domingo Centro", "San Vicente", "Santa Rosa", "Paracito"],
+      "Barva": ["Barva Centro", "San Pedro", "San José de la Montaña"]
+    }
+  },
+  "Guanacaste": {
+    cantones: {
+      "Liberia": ["Liberia Centro", "Cañas Dulces", "Mayorga", "Nacascolo"],
+      "Nicoya": ["Nicoya Centro", "Mansión", "San Antonio", "Quebrada Honda"],
+      "Santa Cruz": ["Santa Cruz Centro", "Bolsón", "Veintisiete de Abril", "Tamarindo"]
+    }
+  },
+  "Puntarenas": {
+    cantones: {
+      "Central": ["Puntarenas Centro", "El Roble", "Chacarita", "Barranca", "Monteverde"],
+      "Esparza": ["Espíritu Santo", "San Juan Grande", "Macacona"],
+      "Garabito": ["Jacó", "Tárcoles"]
+    }
+  },
+  "Limón": {
+    cantones: {
+      "Central": ["Limón Centro", "Valle de La Estrella", "Liverpool"],
+      "Pococí": ["Guápiles", "Jiménez", "Rita", "Roxana", "Cariari"],
+      "Siquirres": ["Siquirres Centro", "Pacuarito", "Florida", "Germania"]
+    }
+  }
+};
+
 export default function PortalLogin() {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
@@ -303,14 +357,18 @@ export default function PortalLogin() {
                     <label style={labelStyle}>Provincia *</label>
                     <select 
                       value={provincia}
-                      onChange={(e) => setProvincia(e.target.value)}
+                      onChange={(e) => {
+                        setProvincia(e.target.value);
+                        setCanton("");
+                        setDistrito("");
+                      }}
                       required
                       style={selectStyle}
                       onFocus={handleFocus}
                       onBlur={handleBlur}
                     >
                       <option value="" disabled style={{ background: "#050505" }}>Seleccione Provincia</option>
-                      {["San José", "Alajuela", "Cartago", "Heredia", "Guanacaste", "Puntarenas", "Limón"].map(prov => (
+                      {Object.keys(locationData).map(prov => (
                         <option key={prov} value={prov} style={{ background: "#050505" }}>{prov}</option>
                       ))}
                     </select>
@@ -321,14 +379,18 @@ export default function PortalLogin() {
                       <label style={labelStyle}>Cantón *</label>
                       <select 
                         value={canton}
-                        onChange={(e) => setCanton(e.target.value)}
+                        onChange={(e) => {
+                          setCanton(e.target.value);
+                          setDistrito("");
+                        }}
+                        disabled={!provincia}
                         required
                         style={selectStyle}
                         onFocus={handleFocus}
                         onBlur={handleBlur}
                       >
                         <option value="" disabled style={{ background: "#050505" }}>Cantón</option>
-                        {["Central", "Escazú", "Desamparados", "San Pablo", "San Ramón", "Siquirres", "Liberia", "Puntarenas"].map(c => (
+                        {provincia && Object.keys(locationData[provincia].cantones).map(c => (
                           <option key={c} value={c} style={{ background: "#050505" }}>{c}</option>
                         ))}
                       </select>
@@ -339,13 +401,14 @@ export default function PortalLogin() {
                       <select 
                         value={distrito}
                         onChange={(e) => setDistrito(e.target.value)}
+                        disabled={!canton}
                         required
                         style={selectStyle}
                         onFocus={handleFocus}
                         onBlur={handleBlur}
                       >
                         <option value="" disabled style={{ background: "#050505" }}>Distrito</option>
-                        {["Carmen", "San Rafael", "Aguas Claras", "San Francisco", "Sabanilla", "El Roble"].map(d => (
+                        {provincia && canton && locationData[provincia].cantones[canton].map(d => (
                           <option key={d} value={d} style={{ background: "#050505" }}>{d}</option>
                         ))}
                       </select>
