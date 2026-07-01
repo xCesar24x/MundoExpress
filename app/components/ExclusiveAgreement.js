@@ -140,7 +140,7 @@ export default function ExclusiveAgreement() {
               fontWeight: 300,
               letterSpacing: "0.2px"
             }}>
-              Alianza estratégica de primer nivel que garantiza vuelos directos,<br />
+              Alianza estratégica de primer nivel que garantiza envios directos,<br />
               manejo prioritario y máxima seguridad en cada envío.
             </p>
           </div>
