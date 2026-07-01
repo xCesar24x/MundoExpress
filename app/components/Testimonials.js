@@ -179,8 +179,8 @@ export default function Testimonials() {
                   background: "#161616",
                   border: "1px solid rgba(20, 177, 189, 0.08)",
                   borderRadius: "16px",
-                  padding: "2.5rem 2rem",
-                  height: "260px",
+                  padding: "2.2rem 2rem",
+                  height: "300px",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-between",
@@ -213,7 +213,12 @@ export default function Testimonials() {
                       color: "rgba(255, 255, 255, 0.8)", 
                       fontSize: "1.05rem", 
                       lineHeight: "1.6",
-                      fontWeight: "400"
+                      fontWeight: "400",
+                      display: "-webkit-box",
+                      WebkitLineClamp: 5,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis"
                     }}>
                       &ldquo;{review.text}&rdquo;
                     </p>
