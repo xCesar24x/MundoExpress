@@ -39,6 +39,7 @@ const servicesList = [
       'Revisión de documentos previos a sus trámites para que cumplan con la Ley General de Aduanas.',
       'Trámites de exportaciones, importaciones temporales y Zona Franca.',
       'Brindamos servicio en todas las aduanas del país.',
+      'Liberación de paquetes retenidos (gestión de mercancías en aduana).',
       'Entrega local de tus mercancías.'
     ]
   },

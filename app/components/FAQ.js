@@ -90,7 +90,7 @@ export default function FAQ() {
         pointerEvents: "none"
       }} />
 
-      <div style={{ maxWidth: "900px", margin: "0 auto", position: "relative", zIndex: 1 }}>
+      <div style={{ maxWidth: "1200px", margin: "0 auto", position: "relative", zIndex: 1 }}>
         
         {/* Pill Label */}
         <div style={{ marginBottom: "2.5rem", textAlign: "center" }}>
@@ -119,6 +119,36 @@ export default function FAQ() {
         }}>
           Preguntas <span style={{ color: "var(--primary, #14B1BD)" }}>Frecuentes</span>
         </h2>
+
+        <div className="faq-layout">
+          {/* Left Column: Mascot */}
+          <div className="faq-mascot-container">
+            <div className="mascot-speech-bubble">
+              ¿Tenés dudas? ¡Aquí respondo tus preguntas!
+              <div className="mascot-bubble-tail" />
+            </div>
+            <div style={{ position: "relative", display: "flex", justifyContent: "center", alignItems: "center" }}>
+              <div style={{
+                position: "absolute",
+                width: "220px",
+                height: "220px",
+                background: "radial-gradient(circle, rgba(20, 177, 189, 0.18) 0%, transparent 70%)",
+                zIndex: -1,
+                borderRadius: "50%",
+                pointerEvents: "none"
+              }} />
+              <motion.img 
+                src="/assets/mascota/PERSONAJE DE MARCA 1.png"
+                alt="Mascota Mundo Express"
+                className="faq-mascot-img"
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              />
+            </div>
+          </div>
+
+          {/* Right Column: FAQ Content */}
+          <div style={{ flex: 1, minWidth: 0 }}>
 
         {/* Search Bar */}
         <div style={{ 
@@ -326,6 +356,9 @@ export default function FAQ() {
               </motion.div>
             )}
           </AnimatePresence>
+        </div>
+
+          </div>
         </div>
 
       </div>

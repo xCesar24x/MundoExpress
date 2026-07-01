@@ -636,6 +636,124 @@ ul {
   color: rgba(255, 255, 255, 0.9);
 }
 
+.stats-slogan {
+  max-width: 1200px;
+  margin: 4rem auto 0 auto;
+  text-align: center;
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(68, 68, 68, 0.08);
+  transition: all 0.5s ease;
+}
+
+.stats-section:hover .stats-slogan {
+  border-top-color: rgba(255, 255, 255, 0.25);
+}
+
+.stats-slogan-text {
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--primary);
+  transition: all 0.5s ease;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.stats-section:hover .stats-slogan-text {
+  color: #FFFFFF;
+}
+
+/* ================= FAQ Layout and Mascot ================= */
+.faq-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 5rem;
+  align-items: start;
+  text-align: left;
+}
+
+.faq-mascot-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: sticky;
+  top: 120px;
+  z-index: 2;
+  margin-top: 1rem;
+}
+
+.faq-mascot-img {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
+}
+
+.mascot-speech-bubble {
+  background: var(--primary);
+  color: var(--bg-dark);
+  padding: 1.2rem 1.5rem;
+  borderRadius: 20px 20px 20px 0px; /* Custom shape */
+  border-radius: 20px 20px 20px 4px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(20, 177, 189, 0.25);
+  max-width: 240px;
+  text-align: center;
+  line-height: 1.4;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.mascot-bubble-tail {
+  position: absolute;
+  bottom: -10px;
+  left: 20px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 10px 0 0;
+  border-color: var(--primary) transparent transparent transparent;
+}
+
+@media (max-width: 968px) {
+  .faq-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .faq-mascot-container {
+    position: relative;
+    top: 0;
+    margin-bottom: 1rem;
+  }
+  .faq-mascot-img {
+    max-width: 200px;
+  }
+  .mascot-speech-bubble {
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* ================= StoreGrid Mascot ================= */
+.storegrid-mascot {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 160px;
+  height: auto;
+  z-index: 5;
+  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.12));
+  pointer-events: none;
+}
+
+@media (max-width: 1024px) {
+  .storegrid-mascot {
+    display: none;
+  }
+}
+
 /* ================= Next.js Dev Overlay Override ================= */
 nextjs-portal {
   display: none !important;

@@ -88,6 +88,12 @@ export default function Stats() {
         </div>
 
       </div>
+
+      <div className="stats-slogan">
+        <p className="stats-slogan-text">
+          "Más que un envío, una solución confiable"
+        </p>
+      </div>
     </section>
   );
 }

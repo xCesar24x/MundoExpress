@@ -173,7 +173,19 @@ export default function StoreGrid() {
 
   return (
     <section style={{ padding: "8rem 2rem", background: "#FFFFFF", color: "var(--bg-dark)", textAlign: "center", position: "relative", overflow: "hidden" }}>
-      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+      <div style={{ maxWidth: "1200px", margin: "0 auto", position: "relative" }}>
+
+        {/* Mascot */}
+        <motion.img 
+          src="/assets/mascota/POSE 1.png"
+          alt="Mascota Mundo Express"
+          className="storegrid-mascot"
+          initial={{ opacity: 0, scale: 0.8, x: 20 }}
+          whileInView={{ opacity: 1, scale: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          whileHover={{ y: -6, rotate: 2, transition: { duration: 0.2 } }}
+        />
 
         {/* Title */}
         <span style={{ color: "var(--primary)", border: "1px solid var(--primary)", padding: "0.5rem 2rem", borderRadius: "50px", textTransform: "uppercase", fontSize: "0.9rem", letterSpacing: "2px", fontWeight: 600 }}>
