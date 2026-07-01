@@ -166,7 +166,7 @@ export default function Hero() {
           </motion.p>
           
           <motion.div className="hero-actions" variants={itemVariants}>
-            <a href="https://www.mundoexpresscr.com" className="btn-primary" style={{ padding: "1rem 2rem", fontSize: "1.1rem" }}>Regístrate Gratis</a>
+            <a href="/portal/login" className="btn-primary" style={{ padding: "1rem 2rem", fontSize: "1.1rem" }}>Regístrate Gratis</a>
             <button 
               onClick={() => setIsModalOpen(true)}
               className="btn-secondary" 
