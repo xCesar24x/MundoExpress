@@ -134,7 +134,7 @@ export default function FAQ() {
                 pointerEvents: "none"
               }} />
               <motion.img 
-                src="/assets/mascota/POSE_PENSANDO.png"
+                src="/assets/mascota/POSE_PREGUNTA.png"
                 alt="Mascota Mundo Express"
                 className="faq-mascot-img"
                 animate={{ y: [0, -10, 0] }}
