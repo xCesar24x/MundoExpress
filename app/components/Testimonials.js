@@ -3,7 +3,10 @@ import React, { useState, useEffect, useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
 
-const reviews = [
+import { db } from '../../lib/firebase';
+import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
+
+const defaultReviews = [
   {
     name: "Sergio F",
     text: "Agil, rapido y economico, sencillo de rastrear y el servicio al cliente es espectacular",
@@ -47,6 +50,27 @@ const reviews = [
 ];
 
 export default function Testimonials() {
+  const [reviews, setReviews] = useState(defaultReviews);
+
+  useEffect(() => {
+    const q = query(collection(db, "testimonials"), orderBy("createdAt", "desc"));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const dbReviews = [];
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        dbReviews.push({
+          name: data.name,
+          text: data.text,
+          stars: data.stars || 5
+        });
+      });
+      setReviews([...dbReviews, ...defaultReviews]);
+    }, (error) => {
+      console.error("Error fetching testimonials from Firebase:", error);
+    });
+
+    return () => unsubscribe();
+  }, []);
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { 
       loop: true, 
