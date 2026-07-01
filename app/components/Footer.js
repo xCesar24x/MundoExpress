@@ -171,7 +171,7 @@ export default function Footer() {
           <h4 style={{ color: "var(--text-main)", fontSize: "1.1rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "1px" }}>Mi Perfil</h4>
           <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
             <motion.a 
-              href="https://sistema.mundoexpresscr.com/register" 
+              href="https://www.mundoexpresscr.com/index.php" 
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary"
@@ -195,7 +195,7 @@ export default function Footer() {
             </motion.a>
             
             <motion.a 
-              href="https://sistema.mundoexpresscr.com/login" 
+              href="https://www.mundoexpresscr.com/index.php" 
               target="_blank"
               rel="noopener noreferrer"
               style={{ 
