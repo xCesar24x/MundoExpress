@@ -461,7 +461,7 @@ export default function PortalDashboard() {
                 </div>
 
                 {/* Dashboard Metrics Grid */}
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1.5rem", marginBottom: "3rem" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "1.5rem", marginBottom: "3rem" }}>
                   <div style={{
                     background: "rgba(255,255,255,0.02)",
                     border: "1px solid rgba(255,255,255,0.05)",
@@ -515,6 +515,39 @@ export default function PortalDashboard() {
                     </div>
                     <div style={{ fontSize: "2.5rem" }}>❓</div>
                   </div>
+
+                  <a 
+                    href="https://wa.me/50670511239" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{
+                      background: "rgba(255,255,255,0.02)",
+                      border: "1px solid rgba(255,255,255,0.05)",
+                      borderRadius: "16px",
+                      padding: "1.5rem",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      textDecoration: "none",
+                      color: "white",
+                      transition: "all 0.2s"
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.background = "rgba(20, 177, 189, 0.05)";
+                      e.currentTarget.style.borderColor = "rgba(20, 177, 189, 0.2)";
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.background = "rgba(255,255,255,0.02)";
+                      e.currentTarget.style.borderColor = "rgba(255,255,255,0.05)";
+                    }}
+                  >
+                    <div>
+                      <div style={{ fontSize: "0.8rem", color: "var(--text-light)", fontWeight: "600", textTransform: "uppercase" }}>SOPORTE</div>
+                      <div style={{ fontSize: "2rem", fontWeight: "800", marginTop: "0.5rem", color: "#25D366" }}>WhatsApp</div>
+                      <div style={{ fontSize: "0.8rem", color: "var(--text-light)", marginTop: "0.25rem" }}>Contactar asesor</div>
+                    </div>
+                    <div style={{ fontSize: "2.5rem" }}>💬</div>
+                  </a>
                 </div>
 
                 {/* Quick Locker Card */}
