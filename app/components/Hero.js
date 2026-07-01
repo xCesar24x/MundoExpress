@@ -146,7 +146,7 @@ export default function Hero() {
               color: 'var(--text-main)',
               marginBottom: '1.5rem',
               letterSpacing: '0.05em',
-              width: 'fit-content'
+              maxWidth: '100%'
             }}
           >
             <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'var(--primary)', borderRadius: '4px', padding: '3px' }}>

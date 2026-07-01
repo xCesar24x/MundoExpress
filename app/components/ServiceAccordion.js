@@ -57,7 +57,7 @@ export default function ServiceAccordion() {
       <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: "4rem" }}>
           <span style={{ color: "var(--primary)", textTransform: "uppercase", letterSpacing: "2px", fontSize: "0.9rem", border: "1px solid var(--primary)", padding: "0.5rem 1.5rem", borderRadius: "50px" }}>NUESTRO PORTAFOLIO</span>
-          <h2 style={{ fontSize: "3rem", fontWeight: 800, textTransform: "uppercase", marginTop: "2rem" }}>UN PLAN PARA CADA <span style={{ color: "var(--primary)" }}>NECESIDAD</span></h2>
+          <h2 style={{ fontSize: "clamp(2rem, 5vw, 3rem)", fontWeight: 800, textTransform: "uppercase", marginTop: "2rem" }}>UN PLAN PARA CADA <span style={{ color: "var(--primary)" }}>NECESIDAD</span></h2>
         </div>
 
         <div className="service-accordion-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "start" }}>

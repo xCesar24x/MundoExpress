@@ -255,6 +255,7 @@ ul {
 
 .hero-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 1.5rem;
 }
 
@@ -452,7 +453,12 @@ ul {
     margin: 0 auto 3rem auto;
   }
   .hero-actions {
-    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+  }
+  .hero-actions .btn-primary, .hero-actions .btn-secondary {
+    width: 100%;
+    text-align: center;
   }
   .hero-graphics-wrapper {
     margin-top: 5rem;

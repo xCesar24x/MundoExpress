@@ -85,7 +85,7 @@ export default function ExclusiveAgreement() {
             flexDirection: "column",
             alignItems: "center",
             gap: "1.2rem",
-            minWidth: "480px",
+            width: "100%",
             maxWidth: "600px"
           }}>
             {/* Top badge */}
