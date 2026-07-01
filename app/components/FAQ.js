@@ -123,10 +123,6 @@ export default function FAQ() {
         <div className="faq-layout">
           {/* Left Column: Mascot */}
           <div className="faq-mascot-container">
-            <div className="mascot-speech-bubble">
-              ¿Tenés dudas? ¡Aquí respondo tus preguntas!
-              <div className="mascot-bubble-tail" />
-            </div>
             <div style={{ position: "relative", display: "flex", justifyContent: "center", alignItems: "center" }}>
               <div style={{
                 position: "absolute",
@@ -138,7 +134,7 @@ export default function FAQ() {
                 pointerEvents: "none"
               }} />
               <motion.img 
-                src="/assets/mascota/PERSONAJE DE MARCA 1.png"
+                src="/assets/mascota/POSE_PENSANDO.png"
                 alt="Mascota Mundo Express"
                 className="faq-mascot-img"
                 animate={{ y: [0, -10, 0] }}
