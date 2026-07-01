@@ -43,7 +43,7 @@ export default function Header() {
 
 
           <motion.a 
-            href="https://www.mundoexpresscr.com/index.php" 
+            href="https://www.mundoexpresscr.com" 
             className="btn-primary" 
             style={{ padding: "0.6rem 1.5rem", fontSize: "0.9rem" }}
             whileHover={{ scale: 1.05 }}
@@ -135,7 +135,7 @@ export default function Header() {
                   <a href="/contact" className="nav-item" onClick={() => setMenuOpen(false)} style={{ fontSize: "1.2rem", fontWeight: 600, color: "#FFF", textDecoration: "none" }}>Contacto</a>
                   
                   <motion.a 
-                    href="https://www.mundoexpresscr.com/index.php" 
+                    href="https://www.mundoexpresscr.com" 
                     className="btn-primary" 
                     onClick={() => setMenuOpen(false)}
                     style={{ 

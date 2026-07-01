@@ -108,7 +108,7 @@ export default function HowItWorks() {
         </div>
 
         <div style={{ textAlign: "center", marginTop: "5rem" }}>
-          <a href="https://www.mundoexpresscr.com/index.php" className="btn-primary" style={{ padding: "1rem 3rem", fontSize: "1.1rem" }}>Regístrate Gratis</a>
+          <a href="https://www.mundoexpresscr.com" className="btn-primary" style={{ padding: "1rem 3rem", fontSize: "1.1rem" }}>Regístrate Gratis</a>
         </div>
       </div>
     </section>
