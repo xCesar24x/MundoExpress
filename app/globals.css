@@ -568,7 +568,7 @@ ul {
   font-size: clamp(2rem, 4vw, 3.5rem);
   font-weight: 900;
   text-transform: uppercase;
-  marginTop: 2rem;
+  margin-top: 2rem;
   line-height: 1.15;
   color: var(--bg-dark);
   transition: all 0.5s ease;
