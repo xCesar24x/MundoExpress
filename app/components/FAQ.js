@@ -123,7 +123,37 @@ export default function FAQ() {
         <div className="faq-layout">
           {/* Left Column: Mascot */}
           <div className="faq-mascot-container">
+            <div className="mascot-speech-bubble">
+              ¿Tenés dudas? ¡Aquí respondo tus preguntas!
+              <div className="mascot-bubble-tail" />
+            </div>
             <div style={{ position: "relative", display: "flex", justifyContent: "center", alignItems: "center" }}>
+              {/* Floating Question Mark */}
+              <motion.div 
+                style={{
+                  position: "absolute",
+                  top: "-30px",
+                  right: "30px",
+                  fontSize: "3.5rem",
+                  fontWeight: 900,
+                  color: "var(--primary, #14B1BD)",
+                  textShadow: "0 0 15px rgba(20, 177, 189, 0.5)",
+                  fontFamily: "inherit",
+                  pointerEvents: "none",
+                  zIndex: 5
+                }}
+                animate={{ 
+                  y: [0, -8, 0],
+                  rotate: [0, -5, 5, 0]
+                }}
+                transition={{ 
+                  duration: 3, 
+                  repeat: Infinity, 
+                  ease: "easeInOut" 
+                }}
+              >
+                ?
+              </motion.div>
               <div style={{
                 position: "absolute",
                 width: "220px",
