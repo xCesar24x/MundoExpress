@@ -231,7 +231,7 @@ export default function Footer() {
       </div>
 
       {/* Sede Central Information Bar */}
-      <div style={{ 
+      <div className="footer-bottom-bar" style={{ 
         maxWidth: "1400px", 
         margin: "4rem auto 0 auto", 
         paddingTop: "2rem", 
@@ -243,7 +243,7 @@ export default function Footer() {
         gap: "1.5rem",
         color: "var(--text-light)"
       }}>
-        <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
+        <div className="footer-bottom-info" style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
           <span style={{ fontSize: "0.9rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
             📍 San José, Costa Rica
           </span>

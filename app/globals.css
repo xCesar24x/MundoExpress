@@ -477,6 +477,9 @@ ul {
   .nav-links {
     display: none;
   }
+  .menu-toggle-btn {
+    display: flex !important;
+  }
   .hero {
     padding-top: 6rem;
   }
@@ -856,6 +859,33 @@ nextjs-portal {
   /* Footer */
   .footer-section {
     padding: 3rem 1.5rem 1.5rem 1.5rem !important;
+  }
+  .footer-container {
+    text-align: center !important;
+  }
+  .footer-brand {
+    align-items: center !important;
+  }
+  .footer-brand p {
+    text-align: center !important;
+  }
+  .footer-links ul {
+    align-items: center !important;
+    padding: 0 !important;
+    list-style: none !important;
+  }
+  .footer-links li {
+    text-align: center !important;
+  }
+  .footer-actions {
+    align-items: center !important;
+  }
+  .footer-bottom-bar {
+    justify-content: center !important;
+    text-align: center !important;
+  }
+  .footer-bottom-info {
+    justify-content: center !important;
   }
 
   /* Feedback */

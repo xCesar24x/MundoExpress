@@ -146,7 +146,7 @@ export default function Testimonials() {
             fontWeight: 600,
             display: "inline-block"
           }}>
-            NUESTRO PORTAFOLIO
+            TESTIMONIALES
           </span>
         </div>
 

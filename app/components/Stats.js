@@ -56,7 +56,7 @@ export default function Stats() {
             viewport={{ once: true }} 
             style={{ gridColumn: "1 / -1" }}
           >
-            <div className="stat-number-big">
+            <div className="stat-number-big" style={{ whiteSpace: "nowrap" }}>
               <Counter from={0} to={1000} prefix="+" />
             </div>
             <div className="stat-label">Clientes activos</div>
@@ -68,7 +68,7 @@ export default function Stats() {
             viewport={{ once: true }} 
             transition={{ delay: 0.15 }}
           >
-            <div className="stat-number-medium">
+            <div className="stat-number-medium" style={{ whiteSpace: "nowrap" }}>
               <Counter from={0} to={13600} prefix="+" />
             </div>
             <div className="stat-label">Paquetes entregados</div>
@@ -80,7 +80,7 @@ export default function Stats() {
             viewport={{ once: true }} 
             transition={{ delay: 0.25 }}
           >
-            <div className="stat-number-medium">
+            <div className="stat-number-medium" style={{ whiteSpace: "nowrap" }}>
               <Counter from={0} to={5} />-<Counter from={0} to={7} />
             </div>
             <div className="stat-label">Días hábiles promedio</div>
