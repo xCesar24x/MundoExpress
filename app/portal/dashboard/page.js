@@ -99,7 +99,7 @@ export default function PortalDashboard() {
 
       // 3. Real-time invoices snapshot
       const invsUnsubscribe = onSnapshot(collection(db, `users/${user.uid}/invoices`), (snapshot) => {
-        const invsList = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const invsList = snapshot.docs.map(doc => ({ docId: doc.id, ...doc.data() }));
         setInvoices(invsList);
       });
 
@@ -241,6 +241,32 @@ export default function PortalDashboard() {
     } catch (err) {
       console.error(err);
       alert("Error al reclamar paquete.");
+    }
+  };
+
+  const getInvoiceStatusColor = (status) => {
+    switch (status) {
+      case "Pagado": return "#10b981"; // Green
+      case "Pago en Revisión": return "#f59e0b"; // Orange/Yellow
+      case "Pendiente": return "#ef4444"; // Red
+      default: return "var(--primary)";
+    }
+  };
+
+  const handleUploadReceipt = async (invoiceDocId, file) => {
+    if (!currentUser || !file) return;
+    
+    try {
+      const invDocRef = doc(db, "users", currentUser.uid, "invoices", invoiceDocId);
+      await updateDoc(invDocRef, {
+        status: "Pago en Revisión",
+        paymentReceiptName: file.name,
+        uploadedAt: new Date().toISOString()
+      });
+      alert(`¡Comprobante "${file.name}" subido con éxito! Nuestro departamento de facturación revisará la transacción de inmediato.`);
+    } catch (err) {
+      console.error(err);
+      alert("Error al subir el comprobante de pago.");
     }
   };
 
@@ -943,6 +969,7 @@ export default function PortalDashboard() {
                           <th style={{ padding: "1.2rem 1.5rem", fontSize: "0.8rem", color: "var(--text-light)" }}>PRECIO</th>
                           <th style={{ padding: "1.2rem 1.5rem", fontSize: "0.8rem", color: "var(--text-light)" }}>ESTADO</th>
                           <th style={{ padding: "1.2rem 1.5rem", fontSize: "0.8rem", color: "var(--text-light)" }}>FECHA</th>
+                          <th style={{ padding: "1.2rem 1.5rem", fontSize: "0.8rem", color: "var(--text-light)", textAlign: "right" }}>COMPROBANTE</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -953,9 +980,9 @@ export default function PortalDashboard() {
                             <td style={{ padding: "1.2rem 1.5rem", fontWeight: "700", color: "var(--primary)" }}>${inv.price.toFixed(2)}</td>
                             <td style={{ padding: "1.2rem 1.5rem" }}>
                               <span style={{
-                                background: inv.status === "Pagado" ? "rgba(16, 185, 129, 0.15)" : "rgba(239, 68, 68, 0.15)",
-                                color: inv.status === "Pagado" ? "#10b981" : "#ef4444",
-                                border: inv.status === "Pagado" ? "1px solid rgba(16, 185, 129, 0.3)" : "1px solid rgba(239, 68, 68, 0.3)",
+                                background: `${getInvoiceStatusColor(inv.status)}15`,
+                                color: getInvoiceStatusColor(inv.status),
+                                border: `1px solid ${getInvoiceStatusColor(inv.status)}30`,
                                 padding: "0.25rem 0.75rem",
                                 borderRadius: "50px",
                                 fontSize: "0.8rem",
@@ -965,6 +992,43 @@ export default function PortalDashboard() {
                               </span>
                             </td>
                             <td style={{ padding: "1.2rem 1.5rem", color: "var(--text-light)", fontSize: "0.9rem" }}>{inv.date}</td>
+                            
+                            <td style={{ padding: "1.2rem 1.5rem", textAlign: "right" }}>
+                              {inv.status === "Pendiente" && (
+                                <label style={{
+                                  background: "rgba(255, 255, 255, 0.03)",
+                                  color: "var(--primary)",
+                                  border: "1px dashed rgba(20, 177, 189, 0.3)",
+                                  padding: "0.4rem 1rem",
+                                  borderRadius: "8px",
+                                  fontSize: "0.8rem",
+                                  fontWeight: "700",
+                                  cursor: "pointer",
+                                  display: "inline-flex",
+                                  alignItems: "center",
+                                  gap: "0.4rem",
+                                  transition: "all 0.2s"
+                                }}>
+                                  <span>+ Subir Pago</span>
+                                  <input 
+                                    type="file" 
+                                    accept=".pdf,.png,.jpg,.jpeg"
+                                    style={{ display: "none" }}
+                                    onChange={(e) => handleUploadReceipt(inv.docId, e.target.files[0])}
+                                  />
+                                </label>
+                              )}
+                              {inv.status === "Pago en Revisión" && (
+                                <span style={{ color: "var(--orange)", fontSize: "0.85rem", fontWeight: "600" }}>
+                                  ⏳ En Revisión
+                                </span>
+                              )}
+                              {inv.status === "Pagado" && (
+                                <span style={{ color: "#10b981", fontSize: "0.85rem", fontWeight: "600" }}>
+                                  ✓ Aprobado
+                                </span>
+                              )}
+                            </td>
                           </tr>
                         ))}
                       </tbody>
