@@ -12,6 +12,7 @@ export default function AdminLogin() {
   const handleLogin = (e) => {
     e.preventDefault();
     if (username === "WilsonOwner" && password === "121196") {
+      localStorage.setItem("adminLoggedIn", "true");
       router.push("/admin/dashboard");
     } else {
       setError(true);

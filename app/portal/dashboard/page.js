@@ -256,17 +256,30 @@ export default function PortalDashboard() {
   const handleUploadReceipt = async (invoiceDocId, file) => {
     if (!currentUser || !file) return;
     
+    // Check file size (Firestore limit is 1MB per document, so limit to 800KB)
+    if (file.size > 800 * 1024) {
+      alert("El archivo es demasiado grande (máximo 800 KB para subirlo directamente al portal). Intenta recortar la captura o usar una imagen de menor resolución.");
+      return;
+    }
+
     try {
-      const invDocRef = doc(db, "users", currentUser.uid, "invoices", invoiceDocId);
-      await updateDoc(invDocRef, {
-        status: "Pago en Revisión",
-        paymentReceiptName: file.name,
-        uploadedAt: new Date().toISOString()
-      });
-      alert(`¡Comprobante "${file.name}" subido con éxito! Nuestro departamento de facturación revisará la transacción de inmediato.`);
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        const base64Data = e.target.result;
+        const invDocRef = doc(db, "users", currentUser.uid, "invoices", invoiceDocId);
+        
+        await updateDoc(invDocRef, {
+          status: "Pago en Revisión",
+          paymentReceiptName: file.name,
+          paymentReceiptUrl: base64Data, // Save Base64 Data URL
+          uploadedAt: new Date().toISOString()
+        });
+        alert(`¡Comprobante "${file.name}" subido con éxito! Nuestro departamento de facturación revisará la transacción de inmediato.`);
+      };
+      reader.readAsDataURL(file);
     } catch (err) {
       console.error(err);
-      alert("Error al subir el comprobante de pago.");
+      alert("Error al procesar y subir el comprobante de pago.");
     }
   };
 
