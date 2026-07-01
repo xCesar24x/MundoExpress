@@ -13,6 +13,7 @@ import {
 export default function PortalDashboard() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("tablero");
+  const [addrTab, setAddrTab] = useState("usa");
   const [copiedField, setCopiedField] = useState("");
   const [profile, setProfile] = useState(mockClientProfile);
   const [searchQuery, setSearchQuery] = useState("");
@@ -41,6 +42,45 @@ export default function PortalDashboard() {
     setEditPhone(profile.phone);
     setEditAddress(profile.address);
   }, [profile]);
+
+  const getAddresses = () => {
+    const fullName = `${profile.name} ${profile.lastName}`;
+    return {
+      usa: [
+        { label: "Nombre / Consignatario", value: `Mundo Express / ${fullName}`, id: "usa_name" },
+        { label: "Dirección / Address Line 1", value: "11350 NW 25th St", id: "usa_addr" },
+        { label: "Dirección 2 / Address Line 2 (Suite - Apartment)", value: "Ste 100", id: "usa_suite" },
+        { label: "Casillero / Referencia", value: profile.lockerId, id: "usa_ref" },
+        { label: "Ciudad / City", value: "Doral", id: "usa_city" },
+        { label: "Estado / State", value: "Florida", id: "usa_state" },
+        { label: "Código Postal / Zip Code", value: "33172", id: "usa_zip" },
+        { label: "País / Country", value: "Estados Unidos", id: "usa_country" },
+        { label: "Teléfono / Phone", value: "+1 (305) 477-5508", id: "usa_phone" }
+      ],
+      china: [
+        { label: "Nombre / Consignatario", value: `Mundo Express / ${fullName}`, id: "c_name" },
+        { label: "Dirección (Chino)", value: "广东省佛山市南海区横二路6号 聚润创意园", id: "c_addr_cn" },
+        { label: "Dirección (Inglés)", value: "No.6, Heng Er Road, Nanhai District, Foshan City, Guangdong Province", id: "c_addr_en" },
+        { label: "Casillero / Referencia", value: profile.lockerId, id: "c_ref" },
+        { label: "Ciudad", value: "Foshan", id: "c_city" },
+        { label: "Provincia", value: "Guangdong", id: "c_prov" },
+        { label: "Código Postal", value: "528244", id: "c_zip" },
+        { label: "País", value: "China", id: "c_country" },
+        { label: "Teléfono", value: "+86 138 0013 8000", id: "c_phone" }
+      ],
+      colombia: [
+        { label: "Nombre / Name", value: "Mundo", id: "co_name" },
+        { label: "Apellido / Last Name", value: `Express / ${fullName}`, id: "co_lastname" },
+        { label: "Dirección / Address Line 1", value: "CRA 46D #75 sur - 47, Aguas Claras 2 apto 214", id: "co_addr" },
+        { label: "Dirección 2 / Suite / Lock Number", value: profile.lockerId, id: "co_suite" },
+        { label: "Estado / Departamento", value: "Antioquia", id: "co_state" },
+        { label: "Ciudad / City", value: "Sabaneta", id: "co_city" },
+        { label: "Código Postal / Zip Code", value: "055450", id: "co_zip" },
+        { label: "País / Country", value: "Colombia", id: "co_country" },
+        { label: "Teléfono / Phone", value: "+57 315-148-5719", id: "co_phone" }
+      ]
+    };
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("userLoggedIn");
@@ -483,8 +523,54 @@ export default function PortalDashboard() {
                 transition={{ duration: 0.3 }}
               >
                 <div style={{ marginBottom: "2.5rem" }}>
-                  <h1 style={{ fontSize: "2.2rem", fontWeight: 900, letterSpacing: "-1px" }}>Dirección de Miami</h1>
-                  <p style={{ color: "var(--text-light)", marginTop: "0.25rem" }}>Completa los datos de envío en tus tiendas online exactamente como se detalla abajo.</p>
+                  <h1 style={{ fontSize: "2.2rem", fontWeight: 900, letterSpacing: "-1px" }}>Direcciones de Envío</h1>
+                  <p style={{ color: "var(--text-light)", marginTop: "0.25rem" }}>Completa los datos de envío en tus tiendas online usando tus direcciones autorizadas.</p>
+                </div>
+
+                {/* Country selector tabs inside shipping section */}
+                <div style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(3, 1fr)",
+                  padding: "4px",
+                  background: "rgba(255, 255, 255, 0.02)",
+                  borderRadius: "12px",
+                  border: "1px solid rgba(255, 255, 255, 0.05)",
+                  position: "relative",
+                  marginBottom: "2rem",
+                  width: "100%",
+                  maxWidth: "480px"
+                }}>
+                  {[
+                    { id: 'usa', name: 'Estados Unidos', flag: '/assets/flag-usa.avif' },
+                    { id: 'china', name: 'China', flag: '/assets/flag-china.avif' },
+                    { id: 'colombia', name: 'Colombia', flag: '/assets/flag-colombia.jpg' }
+                  ].map((tab) => {
+                    const on = addrTab === tab.id;
+                    return (
+                      <button
+                        key={tab.id}
+                        onClick={() => setAddrTab(tab.id)}
+                        style={{
+                          padding: "0.6rem 0",
+                          fontSize: "0.9rem",
+                          fontWeight: "700",
+                          border: "none",
+                          cursor: "pointer",
+                          borderRadius: "8px",
+                          background: on ? "var(--primary)" : "transparent",
+                          color: on ? "white" : "var(--text-light)",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          gap: "0.5rem",
+                          transition: "all 0.2s ease"
+                        }}
+                      >
+                        <img src={tab.flag} alt={tab.name} style={{ width: "20px", height: "13px", objectFit: "cover", borderRadius: "2px" }} />
+                        <span>{tab.name}</span>
+                      </button>
+                    );
+                  })}
                 </div>
 
                 <div style={{ display: "grid", gridTemplateColumns: "1fr", md: "1.5fr 1fr", gap: "2rem" }}>
@@ -499,17 +585,7 @@ export default function PortalDashboard() {
                     flexDirection: "column",
                     gap: "1.5rem"
                   }}>
-                    {[
-                      { label: "Nombre (Full Name)", value: `Mundo Express / ${profile.name} ${profile.lastName}`, id: "name" },
-                      { label: "Dirección Línea 1 (Address Line 1)", value: miamiAddress.addressLine1, id: "line1" },
-                      { label: "Dirección Línea 2 / Suite (Address Line 2)", value: miamiAddress.addressLine2, id: "line2" },
-                      { label: "Casillero / Referencia (Locker / Box ID)", value: profile.lockerId, id: "ref" },
-                      { label: "Ciudad (City)", value: "Doral", id: "city" },
-                      { label: "Estado (State)", value: "Florida", id: "state" },
-                      { label: "Código Postal (Zip Code)", value: miamiAddress.zipCode, id: "zip" },
-                      { label: "País (Country)", value: "United States", id: "country" },
-                      { label: "Teléfono (Phone Number)", value: miamiAddress.phone, id: "phone" }
-                    ].map((field) => (
+                    {getAddresses()[addrTab].map((field) => (
                       <div key={field.id} style={{
                         display: "flex",
                         justifyContent: "space-between",
