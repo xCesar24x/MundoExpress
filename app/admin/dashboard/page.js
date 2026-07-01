@@ -13,6 +13,8 @@ export default function AdminDashboard() {
   // Firestore Real-time Collections State
   const [users, setUsers] = useState([]);
   const [unknownPackages, setUnknownPackages] = useState([]);
+  const [feedbacks, setFeedbacks] = useState([]);
+  const [filterTipo, setFilterTipo] = useState("Todos");
 
   // Active view and selection state
   const [activeTab, setActiveTab] = useState("clientes"); // "clientes" | "desconocidos"
@@ -71,6 +73,29 @@ export default function AdminDashboard() {
     return () => unsubscribe();
   }, [authorized]);
 
+  // 3b. Real-time Feedbacks listener
+  useEffect(() => {
+    if (!authorized) return;
+    const unsubscribe = onSnapshot(collection(db, "feedbacks"), (snapshot) => {
+      const list = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setFeedbacks(list);
+    });
+    return () => unsubscribe();
+  }, [authorized]);
+
+  // Toggle Feedback status
+  const toggleFeedbackStatus = async (id, currentStatus) => {
+    const newStatus = currentStatus === "Pendiente" ? "Atendido" : "Pendiente";
+    try {
+      await updateDoc(doc(db, "feedbacks", id), {
+        status: newStatus,
+        resolvedAt: newStatus === "Atendido" ? new Date().toISOString() : null
+      });
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  };
+
   // 4. Real-time subcollections listener when client is selected
   useEffect(() => {
     if (!authorized || !selectedUser) {
@@ -111,6 +136,12 @@ export default function AdminDashboard() {
       (u.email || "").toLowerCase().includes(searchLower) ||
       (u.cedula || "").toLowerCase().includes(searchLower)
     );
+  });
+
+  // Filter feedbacks
+  const filteredFeedbacks = feedbacks.filter(fb => {
+    if (filterTipo === "Todos") return true;
+    return fb.tipo === filterTipo;
   });
 
   // Calculate quick metrics
@@ -355,6 +386,21 @@ export default function AdminDashboard() {
             }}
           >
             📦 Paquetes sin Identificar
+          </button>
+          <button 
+            onClick={() => { setActiveTab("sugerencias"); setSelectedUser(null); }}
+            style={{
+              padding: "1rem 2rem",
+              background: "none",
+              border: "none",
+              color: activeTab === "sugerencias" ? "var(--primary)" : "var(--text-light)",
+              borderBottom: activeTab === "sugerencias" ? "2px solid var(--primary)" : "none",
+              fontWeight: 700,
+              fontSize: "1rem",
+              cursor: "pointer"
+            }}
+          >
+            📋 Sugerencias ({feedbacks.filter(f => f.status === "Pendiente").length})
           </button>
         </div>
 
@@ -763,6 +809,111 @@ export default function AdminDashboard() {
                     </tbody>
                   </table>
                 </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+
+        {/* Tab 3: FEEDBACK / SUGERENCIAS */}
+        {activeTab === "sugerencias" && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }}>
+              <div>
+                <h2 style={{ fontSize: "1.5rem", fontWeight: "800", margin: 0 }}>Sugerencias y Opiniones de Clientes</h2>
+                <p style={{ color: "var(--text-light)", fontSize: "0.9rem" }}>Mensajes enviados desde el botón flotante de sugerencias de la web principal.</p>
+              </div>
+              <div>
+                <select 
+                  value={filterTipo} 
+                  onChange={(e) => setFilterTipo(e.target.value)}
+                  style={{
+                    padding: "0.6rem 1.2rem",
+                    borderRadius: "8px",
+                    background: "rgba(0,0,0,0.3)",
+                    border: "1px solid rgba(255,255,255,0.1)",
+                    color: "white",
+                    cursor: "pointer",
+                    outline: "none"
+                  }}
+                >
+                  <option value="Todos">Todos los Asuntos</option>
+                  <option value="sugerencia">💡 Sugerencias</option>
+                  <option value="error">⚠️ Reportes de Error</option>
+                  <option value="felicitacion">🎉 Felicitaciones</option>
+                  <option value="otro">💬 Otros</option>
+                </select>
+              </div>
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+              {filteredFeedbacks.length === 0 ? (
+                <div style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: "16px", padding: "4rem", textAlign: "center", color: "var(--text-light)" }}>
+                  No hay sugerencias para mostrar con el filtro seleccionado.
+                </div>
+              ) : (
+                filteredFeedbacks.map((fb) => (
+                  <div key={fb.id} style={{
+                    background: "rgba(255,255,255,0.02)",
+                    border: "1px solid rgba(255,255,255,0.05)",
+                    borderRadius: "16px",
+                    padding: "1.5rem",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "1rem"
+                  }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem" }}>
+                      <div>
+                        <span style={{
+                          background: fb.tipo === "error" ? "rgba(239, 68, 68, 0.15)" : fb.tipo === "felicitacion" ? "rgba(16, 185, 129, 0.15)" : "rgba(20, 177, 189, 0.15)",
+                          color: fb.tipo === "error" ? "#ef4444" : fb.tipo === "felicitacion" ? "#10b981" : "var(--primary)",
+                          padding: "0.25rem 0.6rem",
+                          borderRadius: "6px",
+                          fontSize: "0.75rem",
+                          fontWeight: "700",
+                          textTransform: "uppercase"
+                        }}>
+                          {fb.tipo === "sugerencia" ? "💡 Sugerencia" : fb.tipo === "error" ? "⚠️ Error" : fb.tipo === "felicitacion" ? "🎉 Felicitación" : "💬 Otro"}
+                        </span>
+                        <div style={{ marginTop: "0.4rem", fontSize: "0.85rem", color: "var(--text-light)" }}>
+                          📧 {fb.email}
+                        </div>
+                      </div>
+                      <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                        <span style={{ fontSize: "0.8rem", color: "var(--text-light)" }}>
+                          📅 {fb.createdAt?.seconds ? new Date(fb.createdAt.seconds * 1000).toLocaleDateString('es-CR') : new Date().toLocaleDateString('es-CR')}
+                        </span>
+                        <button
+                          onClick={() => toggleFeedbackStatus(fb.id, fb.status)}
+                          style={{
+                            background: fb.status === "Atendido" ? "rgba(16, 185, 129, 0.15)" : "rgba(245, 158, 11, 0.15)",
+                            border: `1px solid ${fb.status === "Atendido" ? "rgba(16, 185, 129, 0.3)" : "rgba(245, 158, 11, 0.3)"}`,
+                            color: fb.status === "Atendido" ? "#10b981" : "#f59e0b",
+                            padding: "0.4rem 0.8rem",
+                            borderRadius: "50px",
+                            fontSize: "0.8rem",
+                            fontWeight: "700",
+                            cursor: "pointer",
+                            transition: "all 0.2s"
+                          }}
+                        >
+                          {fb.status === "Atendido" ? "✅ Atendido" : "⏳ Pendiente"}
+                        </button>
+                      </div>
+                    </div>
+                    <div style={{
+                      background: "rgba(0,0,0,0.2)",
+                      padding: "1rem",
+                      borderRadius: "8px",
+                      fontSize: "0.95rem",
+                      lineHeight: "1.5",
+                      color: "rgba(255,255,255,0.9)",
+                      whiteSpace: "pre-wrap",
+                      border: "1px solid rgba(255,255,255,0.03)"
+                    }}>
+                      {fb.mensaje}
+                    </div>
+                  </div>
+                ))
               )}
             </div>
           </motion.div>
